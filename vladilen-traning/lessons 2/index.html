@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vue Basics</title>
+    <link rel="stylesheet" href="theme.css" />
+    <script src="https://unpkg.com/vue@next" defer></script>
+    <script src="script.js" defer></script>
+  </head>
+
+  <body>
+    <div id="app" class="container">
+      <div class="card">
+        <h1
+          :style="{
+            color: inputValue.length > 5 ? 'darkred' : 'green',
+            fontSize: '28px'
+          }"
+        >
+          {{ title }}
+        </h1>
+        <div class="form-control">
+          <input
+            type="text"
+            v-bind:placeholder="placeholderString"
+            v-bind:value="inputValue"
+            v-on:input="inputChangeHandler"
+            v-on:keypress.enter="addNewNote"
+          />
+          <!-- <h2>Input Value = {{ inputValue }}</h2> -->
+        </div>
+        <button class="btn primary" v-on:click="addNewNote">Добавить</button>
+        <hr />
+        <ul v-if="notes.length !== 0" class="list">
+          <li class="list-items" v-for="(item, index) in notes">
+            ({{ index + 1 }}) {{ toUpperCase(item) }}
+            <button class="btn danger" v-on:click="removeNote(index)">-</button>
+          </li>
+          <hr />
+          <li>
+            <strong
+              >Общее количество: {{ notes.length }} | А мы можем: {{ doubleCount
+              }}</strong
+            >
+          </li>
+        </ul>
+        <div v-else>Заметок пока нет, добавьте первую!</div>
+      </div>
+    </div>
+  </body>
+</html>

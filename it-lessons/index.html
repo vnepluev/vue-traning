@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vue 3 traning project</title>
+    <script src="https://unpkg.com/vue@next" defer></script>
+    <script src="js/script.js" defer></script>
+</head>
+
+<body>
+    <div id="app">
+        <h1>{{ title }}</h1>
+        <!--
+            Для взаимодействия с атрибутами тегов не достаточно
+            прописать style="{{ style }}", для работы с атрибутами
+            элементов служит v-bind
+        -->
+        <p v-bind:style="style">{{ isTrue }}</p>
+        <!--Задавать события можно двумя способами -->
+        <button @click="title='Мы нажали на кнопку button'">@click</button>
+        <button v-on:mouseover="title='Мышь на button'" v-on:mouseout="title='Мышь ушла'">
+            v-on
+        </button>
+        <button @click="changeText">Через функцию</button>
+        <input type="text" @input="style=$event.target.value">
+    </div>
+    <br><br><br>
+    <hr>
+    <br><br>
+
+    <div id="second">
+        <input type="text" @input="increment($event.target.value)">
+        <p>{{ first_num }}</p>
+        <p><b>{{ second_num }}</b></p>
+    </div>
+</body>
+
+</html>
