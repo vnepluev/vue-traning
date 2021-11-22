@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vue Basics</title>
+    <link rel="stylesheet" href="theme.css" />
+    <script src="https://unpkg.com/vue@next" defer></script>
+    <script src="script.js" defer></script>
+  </head>
+
+  <body>
+    <div id="app" class="container pt-5">
+      <div class="card center">
+        <h1>{{ title }} {{ counter }}</h1>
+        <div>
+          <button class="btn primary" v-on:click="counter++">+</button>
+          <button class="btn danger" @click="counter--">-</button>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
