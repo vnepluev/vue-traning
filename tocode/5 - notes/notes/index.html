@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Notes</title>
+    <script src="https://unpkg.com/vue@next"></script>
+  </head>
+  <body>
+    <div class="wrapper">
+      <!-- vue app start -->
+      <div id="app">
+        <h1>{{title}}</h1>
+        <div>Cтоит отметить, что директива v-model может применяться только к html-элементам <\input>, <\select>, <\textarea> и к компонентам Vue.</div>
+        <form method="get" @submit.prevent="onSubmit">
+          <input
+            type="text"
+            required
+            name="notesTitle"
+            v-model="input.value"
+            :placeholder="input.placeholder"
+          >
+          <button type="submit">Add new notes</button>
+        </form>
+        <div class="notes">
+          <div class="note" v-for="(note, index) in notes" :key="index">
+            <p>{{ note }} <span @click="remove(index)">&times;</span></p>
+          </div>
+        </div>
+      <!-- vue app end -->
+    </div>
+
+    <script src="app.js"></script>
+  </body>
+</html>
