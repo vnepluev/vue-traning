@@ -25,7 +25,15 @@
         </form>
         <div class="notes">
           <div class="note" v-for="(note, index) in notes" :key="index">
-            <p>{{ note }} <span @click="remove(index)">&times;</span></p>
+            <span
+              onselectstart="return false"
+              @dblclick="editNote($event.target)"
+              @keydown.enter="editNoteEnd($event.target)"
+              :data-id="index"
+            >
+            {{ note }}
+            </span>
+            <span @click="remove(index)"> &times;</span>
           </div>
         </div>
       <!-- vue app end -->
