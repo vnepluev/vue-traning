@@ -4,6 +4,7 @@ const routerHistory = createWebHashHistory();
 
 import HomePage from "./pages/home";
 import AboutPage from "./pages/about";
+import Page404 from "./pages/404";
 
 const routers = createRouter({
   history: routerHistory,
@@ -15,6 +16,11 @@ const routers = createRouter({
     {
       path: "/about",
       component: AboutPage,
+    },
+    {
+      //path: "/:PathMath(.*)*",
+      path: "/:CatchAll(.*)",
+      component: Page404,
     },
   ],
 });
