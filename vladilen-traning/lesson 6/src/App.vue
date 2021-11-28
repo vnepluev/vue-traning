@@ -4,13 +4,20 @@
       <div class="card">
         <h2>Актуальные новости {{ now }}</h2>
       </div>
-
+      <app-news
+        v-for="item in news"
+        :key="item"
+        :title="item"
+      ></app-news>
 
     </div>
   </div>
 </template>
 
 <script>
+import AppNews from './AppNews.vue'
+
+
 export default {
   data() {
     return {
@@ -23,6 +30,7 @@ export default {
     }
   },
   components: {
+    'app-news': AppNews
   }
 }
 </script>
