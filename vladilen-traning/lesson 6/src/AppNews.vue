@@ -25,6 +25,19 @@ export default {
             default: false
         }
     },
+    // emits: ['open-news'],
+    emits: {
+        // Если валидация не требуется - 'open-news': null
+        // если требуется, то превращаем в метод
+        'open-news'(num) {
+            if (num) {
+                // если передано значение
+                return true
+            }
+            console.warn('No data in open-news emit');
+            return false
+        }
+    },
     data() {
         return {
             // напрямую нельзя менять значение isOpen в дочернем
