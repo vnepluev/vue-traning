@@ -8415,6 +8415,11 @@ vue-template-es2015-compiler@^1.9.0:
   resolved "https://registry.yarnpkg.com/vue-template-es2015-compiler/-/vue-template-es2015-compiler-1.9.1.tgz#1ee3bc9a16ecbf5118be334bb15f9c46f82f5825"
   integrity sha512-4gDntzrifFnCEvyoO8PqyJDmguXgVPxKiIxrBKjIowvL9l+N66196+72XVYR8BBf1Uv1Fgt3bGevJ+sEmxfZzw==
 
+vue3-carousel@^0.1.31:
+  version "0.1.31"
+  resolved "https://registry.yarnpkg.com/vue3-carousel/-/vue3-carousel-0.1.31.tgz#43a4ecff07ca52172b45337d59e681724d30587c"
+  integrity sha512-dVbE8O5OoR9niUNBXrS7CVG4JH+eCeMk7GnmwvPETySFSirqlsglWGQZQIb17VHqkGP0senuW1vflh70AgSTlw==
+
 vue@^3.0.0:
   version "3.2.23"
   resolved "https://registry.yarnpkg.com/vue/-/vue-3.2.23.tgz#fe17e4a98bee1afe2aed351a0a80e052728f9ce2"
