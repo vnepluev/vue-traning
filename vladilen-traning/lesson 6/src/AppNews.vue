@@ -16,6 +16,7 @@
                 >
                 Прочесть новость
             </app-button>
+            <app-news-list :news="news"></app-news-list>
             <!-- this работая в templates мы опускаем -->
             <app-button
                 color="danger"
@@ -30,9 +31,11 @@
 
 <script>
 import AppButton from './AppButton.vue'
+import AppNewsList from './AppNewsList'
 
 export default {
     props: {
+        'news': Array,
         'title': {
             type: String,
             required: true
@@ -100,6 +103,6 @@ export default {
         //     this.$emit('unmark', this.id)
         // }
     },
-    components: { AppButton }
+    components: { AppButton, AppNewsList }
 }
 </script>

@@ -12,3 +12,9 @@ const app = createApp(App);
 // the-header<tab>
 app.component('the-header', TheHeader);
 app.mount('#app');
+
+// App -> AppNews -> AppNewsList
+//  ^------^----------^ схема передачи значений
+// Vue позволяет сразу передать параметр в нужный компонент, минуя AppNews
+// App -> AppNewsList
+//

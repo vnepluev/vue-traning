@@ -12,6 +12,7 @@
         :id="item.id"
         :is-open="item.isOpen"
         :was-read="item.wasRead"
+        :news="news"
         @open-news="openNews"
         @read-news="readNews"
         @unmark="unreadNews"
