@@ -2,87 +2,53 @@
   <div>
     <div class="container pt-1">
       <div class="card">
-        <h2>Актуальные новости {{ now }}</h2>
-        <span><strong>{{ openRate }}</strong> | Прочитано: <strong>{{ readRate }}</strong></span>
+        <h2>Slots</h2>
       </div>
-      <app-news
-        v-for="item in news"
-        :key="item.id"
-        :title="item.title"
-        :id="item.id"
-        :is-open="item.isOpen"
-        :was-read="item.wasRead"
-        @open-news="openNews"
-        @read-news="readNews"
-        @unmark="unreadNews"
-      ></app-news>
+
+      <app-list>
+        <!--
+        <template #default="slotProps">
+          <strong>{{ slotProps.index + 1 }} </strong>
+          <span style="color: orange;">Item: {{ slotProps.iter }}</span>
+        </template> -->
+
+        <!-- ES 6 синтаксис -->
+        <template #default="{iter, index}">
+          <strong>{{ index + 1 }} &nbsp;</strong>
+          <span style="color: orange;">Item: {{ iter }}</span>
+        </template>
+
+      </app-list>
+
+      <app-block>
+        <p>Это текст для блока AppBlock</p>
+        <template v-slot:header>
+          <h3>Это заголовок H3</h3>
+        </template>
+        <!-- # служит для сокращения v-slot -->
+        <template #footer>
+          <small>Это footer</small>
+        </template>
+      </app-block>
     </div>
   </div>
 </template>
 
 <script>
-import AppNews from './AppNews.vue'
+import AppBlock from './AppBlock.vue'
+import AppList from './AppList.vue'
 
 export default {
   data() {
-    return {
-      now: new Date().toLocaleDateString(),
-      openRate: 0,
-      readRate: 0,
-      news: [
-        {
-          id: 1,
-          title: 'На МКС устранили утечку воздуха. Все работает в штатном режиме.',
-          isOpen: true,
-          wasRead: false
-        },
-        {
-          id: 2,
-          title: 'Россия отмечает международный праздник: QR коды отменены!',
-          isOpen: false,
-          wasRead: false
-        },
-        {
-          id: 3,
-          title: 'Свой день рождения отмечает наш лучший друг, пригласивший к нему в баню!',
-          isOpen: false,
-          wasRead: false
-        }
-      ]
-    }
   },
   methods: {
-    openNews(data) {
-      this.openRate++;
-      console.log(data); // <open-news>, 42 будет в data
-    },
-    readNews(id) {
-      // 06 Vladilen 01:00:00
-      const idx = this.news.findIndex(news => news.id === id)
-      this.news[idx].wasRead = true
-      this.readRate++
-    },
-    unreadNews(id) {
-      // Делаем новость не прочитанной
-      const news = this.news.find(news => news.id === id)
-      news.wasRead = false
-      this.readRate--
-    }
-  },
-  provide() {
-    return {
-      title: 'Список всех новостей',
-      news: this.news
-    }
   },
   components: {
-    'app-news': AppNews,
+    AppBlock, AppList
   }
 }
 </script>
 
 <style scoped>
-  h2 {
-    color: darkmagenta
-  }
+
 </style>
