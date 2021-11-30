@@ -12,7 +12,6 @@
         :id="item.id"
         :is-open="item.isOpen"
         :was-read="item.wasRead"
-        :news="news"
         @open-news="openNews"
         @read-news="readNews"
         @unmark="unreadNews"
@@ -70,12 +69,20 @@ export default {
       this.readRate--
     }
   },
+  provide() {
+    return {
+      title: 'Список всех новостей',
+      news: this.news
+    }
+  },
   components: {
     'app-news': AppNews,
   }
 }
 </script>
 
-<style>
-
+<style scoped>
+  h2 {
+    color: darkmagenta
+  }
 </style>

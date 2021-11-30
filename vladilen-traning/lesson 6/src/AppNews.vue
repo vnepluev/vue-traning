@@ -16,7 +16,7 @@
                 >
                 Прочесть новость
             </app-button>
-            <app-news-list :news="news"></app-news-list>
+            <app-news-list></app-news-list>
             <!-- this работая в templates мы опускаем -->
             <app-button
                 color="danger"
@@ -35,7 +35,6 @@ import AppNewsList from './AppNewsList'
 
 export default {
     props: {
-        'news': Array,
         'title': {
             type: String,
             required: true
