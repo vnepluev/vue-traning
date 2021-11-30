@@ -14,6 +14,7 @@
         :was-read="item.wasRead"
         @open-news="openNews"
         @read-news="readNews"
+        @unmark="unreadNews"
       ></app-news>
     </div>
   </div>
@@ -21,7 +22,6 @@
 
 <script>
 import AppNews from './AppNews.vue'
-
 
 export default {
   data() {
@@ -57,14 +57,20 @@ export default {
       console.log(data); // <open-news>, 42 будет в data
     },
     readNews(id) {
-      // Vladilen 01:00:00
+      // 06 Vladilen 01:00:00
       const idx = this.news.findIndex(news => news.id === id)
       this.news[idx].wasRead = true
       this.readRate++
+    },
+    unreadNews(id) {
+      // Делаем новость не прочитанной
+      const news = this.news.find(news => news.id === id)
+      news.wasRead = false
+      this.readRate--
     }
   },
   components: {
-    'app-news': AppNews
+    'app-news': AppNews,
   }
 }
 </script>

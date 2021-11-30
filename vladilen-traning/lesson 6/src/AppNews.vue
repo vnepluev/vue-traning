@@ -1,18 +1,36 @@
 <template>
     <div class="card">
         <h3>{{ title }}</h3>
-        <button class="btn" @click="open">
+        <app-button
+            @action="open"
+            >
             {{ isNewsOpen ? 'Закрыть' : 'Открыть' }}
-        </button>
+        </app-button>
         <div v-if="isNewsOpen">
             <hr />
             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet earum placeat, ex qui doloribus voluptatum! Repudiandae doloremque porro accusamus asperiores!</p>
-            <button v-if="!wasRead" class="btn primary" @click="mark">Прочесть новость</button>
+            <app-button
+                v-if="!wasRead"
+                color="primary"
+                @action="mark"
+                >
+                Прочесть новость
+            </app-button>
+            <!-- this работая в templates мы опускаем -->
+            <app-button
+                color="danger"
+                v-if="wasRead"
+                @action="$emit('unmark', id)"
+                >
+                Отметить непрочитанным
+            </app-button>
         </div>
     </div>
 </template>
 
 <script>
+import AppButton from './AppButton.vue'
+
 export default {
     props: {
         'title': {
@@ -50,7 +68,8 @@ export default {
             if (id) return true
             console.warn('Нет параметра id для emit read-news')
             return false
-        }
+        },
+        unmark: null
     },
     data() {
         return {
@@ -74,7 +93,13 @@ export default {
         mark() {
             this.isNewsOpen = false
             this.$emit('read-news', this.id)
-        }
-    }
+        },
+        // Когда метод в 1 строчку, можно его указать в коде
+        // Работая в <templates> this опускаем
+        // unmark() {
+        //     this.$emit('unmark', this.id)
+        // }
+    },
+    components: { AppButton }
 }
 </script>
