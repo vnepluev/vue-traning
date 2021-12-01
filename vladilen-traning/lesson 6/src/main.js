@@ -1,4 +1,4 @@
-import { createApp } from 'vue';
+import { createApp, defineAsyncComponent } from 'vue';
 import App from './App.vue';
 import TheHeader from './TheHeader';
 import './theme.css';
@@ -11,6 +11,14 @@ const app = createApp(App);
 // Для отображения компонента его нужно подключить в копоненте в секции template
 // the-header<tab>
 app.component('the-header', TheHeader);
+
+// подключаем асинхронно компонент
+app.component(
+  'async-component',
+  defineAsyncComponent(() => {
+    return import('./AppAsyncComponent');
+  })
+);
 app.mount('#app');
 
 // App -> AppNews -> AppNewsList
