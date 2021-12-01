@@ -33,7 +33,6 @@ const routers = createRouter({
       beforeEnter: (to, from, next) => {
         //const alias = this.$route.params.itemAlias;
         const find = items.find((el) => el.alias === to);
-        console.log(find);
         if (find !== undefined) {
           next({ name: "itemAlias" });
         } else next({ name: "page404" });
