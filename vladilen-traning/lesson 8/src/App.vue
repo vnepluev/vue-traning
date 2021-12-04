@@ -3,6 +3,8 @@
     <form class="card" @submit.prevent="createPerson">
       <h2>Работа с базой данных</h2>
 
+      <app-alert :alert="alert" @close="alert = null"></app-alert>
+
       <div class="form-control">
         <label for="name">Введите имя:</label>
         <input id="name" type="text" v-model.trim="name">
@@ -14,6 +16,7 @@
     <AppPeopleList
      :people="people"
      @load="loadPeople"
+     @remove="removePerson"
     ></AppPeopleList>
   </div>
 </template>
@@ -21,14 +24,17 @@
 <script>
 import axios from 'axios';
 import AppPeopleList from './AppPeopleList.vue';
+import AppAlert from './AppAlert';
 
 const baseUrl = 'https://vue-http-firebase-vladilen-default-rtdb.firebaseio.com/people.json';
+const baseUrlDel = 'https://vue-http-firebase-vladilen-default-rtdb.firebaseio.com/';
 
 export default {
   data() {
     return {
       name: '',
       people: [],
+      alert: null,
     }
   },
   mounted() {
@@ -61,20 +67,46 @@ export default {
       this.name = '';
     },
     async loadPeople() {
-      // Axios возвращает объект, с полем data - которое содержит
-      // ключ = id, значение = объект { firstName: "...", ... }
-      // применяем деструктуризацию и сразу забираем данные в массив data
-      const { data } = await axios.get(baseUrl);
-      this.people = Object.keys(data).map( (key) => {
-        return {
-          id: key,
-          // firstName: data[key].firstName,
-          ...data[key]
+      try {
+        // Axios возвращает объект, с полем data - которое содержит
+        // ключ = id, значение = объект { firstName: "...", ... }
+        // применяем деструктуризацию и сразу забираем данные в массив data
+        const { data } = await axios.get(baseUrl);
+        if (!data) {
+          throw new Error('Список людей пуст')
         }
-      })
-    }
+        this.people = Object.keys(data).map( (key) => {
+          return {
+            id: key,
+            // firstName: data[key].firstName,
+            ...data[key]
+          }
+        })        
+      } catch (error) {
+        this.alert = {
+          type: 'danger',
+          title: 'Ошибка!',
+          text: error.message,
+        }
+        console.log(error.message);
+      }
+    },
+    async removePerson(id) {
+      try {
+        const name = this.people.find(person => person.id === id).firstName;
+        await axios.delete(`${baseUrlDel}people/${id}.json`);
+        this.people = this.people.filter(person => person.id !== id);
+        this.alert = {
+          type: 'primary',
+          title: 'Успешно!',
+          text: `Пользователь c именем "${name}" был удален`,
+        }
+      } catch (error) {
+        
+      }
+    },
   },
-  components: { AppPeopleList }
+  components: { AppPeopleList, AppAlert }
 }
 </script>
 
