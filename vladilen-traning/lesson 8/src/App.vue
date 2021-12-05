@@ -13,7 +13,10 @@
       <button class="btn primary" :disabled="name.length === 0">Создать человека</button>
     </form>
 
+    <AppLoader v-if="loading"></AppLoader>
+
     <AppPeopleList
+     v-else
      :people="people"
      @load="loadPeople"
      @remove="removePerson"
@@ -25,6 +28,7 @@
 import axios from 'axios';
 import AppPeopleList from './AppPeopleList.vue';
 import AppAlert from './AppAlert';
+import AppLoader from './AppLoader.vue';
 
 const baseUrl = 'https://vue-http-firebase-vladilen-default-rtdb.firebaseio.com/people.json';
 const baseUrlDel = 'https://vue-http-firebase-vladilen-default-rtdb.firebaseio.com/';
@@ -35,6 +39,7 @@ export default {
       name: '',
       people: [],
       alert: null,
+      loading: false,
     }
   },
   mounted() {
@@ -66,30 +71,35 @@ export default {
 
       this.name = '';
     },
-    async loadPeople() {
-      try {
-        // Axios возвращает объект, с полем data - которое содержит
+    loadPeople() {
+      // Axios возвращает объект, с полем data - которое содержит
         // ключ = id, значение = объект { firstName: "...", ... }
         // применяем деструктуризацию и сразу забираем данные в массив data
-        const { data } = await axios.get(baseUrl);
-        if (!data) {
-          throw new Error('Список людей пуст')
-        }
-        this.people = Object.keys(data).map( (key) => {
-          return {
-            id: key,
-            // firstName: data[key].firstName,
-            ...data[key]
-          }
-        })        
-      } catch (error) {
-        this.alert = {
-          type: 'danger',
-          title: 'Ошибка!',
-          text: error.message,
-        }
-        console.log(error.message);
-      }
+        this.loading = true;
+        setTimeout(async () => {
+          try {
+            const { data } = await axios.get(baseUrl);
+            if (!data) {
+              throw new Error('Список людей пуст')
+            }
+            this.people = Object.keys(data).map( (key) => {
+              return {
+                id: key,
+                // firstName: data[key].firstName,
+                ...data[key]
+              }
+            })
+            this.loading = false;
+            } catch (error) {
+              this.alert = {
+                type: 'danger',
+                title: 'Ошибка!',
+                text: error.message,
+              }
+              this.loading = false;
+              console.log(error.message);
+            }
+        }, 1500);
     },
     async removePerson(id) {
       try {
@@ -106,7 +116,7 @@ export default {
       }
     },
   },
-  components: { AppPeopleList, AppAlert }
+  components: { AppPeopleList, AppAlert, AppLoader }
 }
 </script>
 
