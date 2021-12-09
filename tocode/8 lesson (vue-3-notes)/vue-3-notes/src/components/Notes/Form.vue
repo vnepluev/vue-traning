@@ -2,7 +2,11 @@
   <div class="note-form-wrapper">
     <form class="note-form" @submit.prevent="onSubmit">
       <textarea placeholder="Plase your note" v-model="value"></textarea>
-      <TagsList :items="tags" @onItemClick="handleTagClick" />
+      <TagsList
+        :items="tags"
+        :isActive="isActive"
+        @onItemClick="handleTagClick"
+      />
       <button class="btn btnPrimary" type="submit">Add new Note</button>
     </form>
   </div>
@@ -14,6 +18,7 @@ export default {
   data() {
     return {
       value: "",
+      isActive: false,
       tags: ["work", "home", "travel"],
     };
   },
@@ -27,7 +32,8 @@ export default {
       this.value = "";
     },
     handleTagClick(tag) {
-      console.log(tag);
+      this.isActive = !this.isActive;
+      console.log(tag, this.isActive);
     },
   },
 };

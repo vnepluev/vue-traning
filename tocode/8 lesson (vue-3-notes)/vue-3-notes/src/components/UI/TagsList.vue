@@ -1,13 +1,13 @@
 <template>
   <div class="tags-list">
-    <!-- ДЗ: в строке :class меняем на isActive если активный -->
     <div
       class="tag-item"
-      :class="{ isPreview: isPreview }"
       v-for="item in items"
       :key="item"
       @click="$emit('onItemClick', item)"
+      :class="{ isPreview: isPreview, isActive: isActive }"
     >
+      <!-- ДЗ: в строке выше :class меняем на isActive если активный -->
       <span> {{ item }} </span>
     </div>
   </div>

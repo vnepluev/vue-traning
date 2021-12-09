@@ -8,6 +8,7 @@
         </p>
       </div>
       <div class="note-footer">
+        <!-- Сокращение isPreview -> :isPreview="true" -->
         <TagsList
           isPreview
           v-if="note.tags && note.tags.length > 0"
