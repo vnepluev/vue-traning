@@ -4,29 +4,35 @@
       class="tag-item"
       v-for="item in items"
       :key="item"
-      @click="$emit('onItemClick', item)"
-      :class="{ isPreview: isPreview, isActive: isActive }"
+      @click="onClick(item)"
+      :class="{ isPreview: isPreview, isActive: item.active }"
     >
       <!-- ДЗ: в строке выше :class меняем на isActive если активный -->
-      <span> {{ item }} </span>
+      <span> {{ item.category }} </span>
     </div>
   </div>
 </template>
 
 <script>
 export default {
+  emits: ["onItemClick"],
+  data() {
+    return {};
+  },
   props: {
     items: {
       type: Array,
       required: true,
     },
-    isActive: {
-      type: Boolean,
-      default: false,
-    },
     isPreview: {
       type: Boolean,
       default: false,
+    },
+  },
+  methods: {
+    onClick(item) {
+      item.active = !item.active;
+      this.$emit("onItemClick", item);
     },
   },
 };
