@@ -1,28 +1,20 @@
 <template>
   <div class="container">
-    <!-- :closable="true" -->
-    <app-alert
-      v-if="alert"
-      title="Внимание!"
-      text="Это очень важное сообщение, будьте бдительны!"
-      closable
-      @close="alert = false"
-    ></app-alert>
-
     <div class="card">
-      <button class="btn primary" @click="toggleAlert">{{ alert ? 'Скрыть сообщение' : 'Показать сообщение' }}</button>
-    </div>
+      <h2>Разговор про директивы</h2>
 
-    <app-block></app-block>
+      <div class="form-control">
+        <label for="inp">Активный по умолчанию</label>
+        <input type="text" id="inp">
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
-import AppAlert from '@/components/AppAlert.vue';
-import AppBlock from '@/components/AppBlock.vue';
 
 export default {
-  components: { AppAlert, AppBlock }
+
 }
 </script>
 

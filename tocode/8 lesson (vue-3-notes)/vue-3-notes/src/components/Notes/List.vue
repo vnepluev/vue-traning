@@ -23,6 +23,7 @@
 import TagsList from "@/components/UI/TagsList";
 
 export default {
+  emits: ["onRemove"],
   props: {
     items: {
       type: Array,
@@ -60,6 +61,6 @@ export default {
   display: flex;
   flex-direction: column;
   justify-content: start;
-  align-items: start;
+  align-items: flex-start;
 }
 </style>

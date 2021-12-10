@@ -8,7 +8,8 @@
       :class="{ isPreview: isPreview, isActive: item.active }"
     >
       <!-- ДЗ: в строке выше :class меняем на isActive если активный -->
-      <span> {{ item.category }} </span>
+      <span v-if="item.category"> {{ item.category }} </span>
+      <span v-else v-for="el in item" :key="el"> {{ el }} </span>
     </div>
   </div>
 </template>

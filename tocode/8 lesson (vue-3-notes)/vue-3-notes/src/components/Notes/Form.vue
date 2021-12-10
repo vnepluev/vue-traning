@@ -37,7 +37,7 @@ export default {
       const name = "Valeriy";
       const age = "38";
       this.$emit("test", { name: name, age });
-      this.$emit("onSubmit", this.value);
+      this.$emit("onSubmit", { title: this.value, tags: this.tags });
       this.value = "";
     },
     handleTagClick(tag) {

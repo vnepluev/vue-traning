@@ -45,12 +45,20 @@ export default {
         this.items = JSON.parse(localNotes);
       }
     },
-    handleSubmit(title) {
+    handleSubmit(obj) {
+      const tags = obj.tags;
       const note = {
-        title: title,
+        title: obj.title,
         tags: [],
       };
-      this.items.push(note);
+
+      if (obj.title.length !== 0) {
+        tags.forEach((item) => {
+          if (item.active) note.tags.push(item.category);
+          item.active = false;
+        });
+        this.items.push(note);
+      }
     },
     handleTest({ name, age }) {
       // Либо можем принять name, age как handleTest(user)
