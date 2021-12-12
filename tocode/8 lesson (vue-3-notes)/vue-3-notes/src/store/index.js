@@ -9,13 +9,25 @@ export const store = createStore({
     ],
   },
   getters: {
+    // Первым параметром в функцию всегда идет state
+    // Вторым+ параметром идет геттер, именовать можно как угодно
     // Геттеры пишем с приставкой get<далее то, что хотим получить>
     // Геттеры похожи на функции computed
-    // Первым параметром в функцию всегда идет state
     // Если в коде потребуется обратиться к state -> хорошей практикой
     // не обращаться на примую, а задействовать геттеры
-    getUsers(state) {
+    getAllUsers(state) {
       return state.users;
+    },
+    // Пользователи, не являющиеся администраторами
+    getUsers(state) {
+      return state.users.filter((user) => !user.admin);
+    },
+    getUsersById: (state) => (id) => {
+      return state.users.find((user) => user.id === id);
+    },
+    getUsersLength(state, getters) {
+      const pref = "Количество пользователей";
+      return `${pref} ${getters.getAllUsers.length}`;
     },
   },
 });
