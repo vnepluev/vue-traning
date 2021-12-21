@@ -64,6 +64,13 @@
 import Header from "@/components/Header.vue";
 import Footer from "@/components/Footer.vue";
 
+// vuelidate
+// https://github.com/vuelidate/vuelidate
+// https://vuelidate-next.netlify.app/#getting-started-1
+//
+import { useVuelidate } from '@vuelidate/core';
+//
+
 import Modals from "@/components/UI/Modal.vue";
 import ModalValidate from "@/components/ModalValidate.vue";
 
@@ -79,6 +86,10 @@ export default {
       modalValidate: false,
     }
   },
+  // vuelidate
+  setup () {
+    return { v$: useVuelidate() }
+  },
   methods: {
     submitSecondForm() {
       console.log({
@@ -88,7 +99,7 @@ export default {
       this.modalSecond.name = '';
       this.modalSecond.email = '';
       this.modalSecond.show = false;
-    }
+    },
   },
   components: { Header, Footer, Modals, ModalValidate },
 };

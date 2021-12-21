@@ -20,5 +20,9 @@ npm run build
 npm run lint
 ```
 
+```
+npm install @vuelidate/core @vuelidate/validators
+```
+
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
