@@ -25,6 +25,13 @@
 </template>
 
 <script>
+
+// vuelidate
+// https://github.com/vuelidate/vuelidate
+// https://vuelidate-next.netlify.app/#getting-started-1
+//
+import { useVuelidate } from '@vuelidate/core';
+//
 import { required, minLength, email } from '@vuelidate/validators';
 import modal from "@/components/UI/Modal.vue";
 
@@ -34,6 +41,10 @@ export default {
       name: '',
       email: ''
     }
+  },
+  // vuelidate
+  setup () {
+    return { v$: useVuelidate() }
   },
   validations () {
     return {

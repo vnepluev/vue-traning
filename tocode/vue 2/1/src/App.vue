@@ -64,6 +64,12 @@
 import Header from "@/components/Header.vue";
 import Footer from "@/components/Footer.vue";
 
+// vuelidate
+// https://github.com/vuelidate/vuelidate
+// https://vuelidate-next.netlify.app/#getting-started-1
+//
+//
+
 import Modals from "@/components/UI/Modal.vue";
 import ModalValidate from "@/components/ModalValidate.vue";
 
@@ -79,6 +85,7 @@ export default {
       modalValidate: false,
     }
   },
+
   methods: {
     submitSecondForm() {
       console.log({
