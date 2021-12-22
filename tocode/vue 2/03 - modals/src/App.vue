@@ -51,7 +51,7 @@
         >Show modal validate</button>
         <ModalValidate
           v-show="modalValidate"
-          @close="modalValidate = true"
+          @close="modalValidate = false"
         ></ModalValidate>
 
       </div>
