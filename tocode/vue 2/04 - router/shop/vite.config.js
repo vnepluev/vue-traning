@@ -4,5 +4,7 @@ import babel from "vite-babel-plugin";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [vue(), babel()]
+  plugins: [vue(), babel()],
+  filenameHashing: true,
+  productionSourceMap: false
 })

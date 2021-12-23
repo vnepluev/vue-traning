@@ -31,8 +31,8 @@ npm install vue-router@4 || yarn add vue-router@4 || npm install vue-router@next
 ```
 
 # Optional
-[Video tutorial](https://www.youtube.com/watch?v=O8epzPrsADI)
-[Vitesse, markdown](https://www.youtube.com/watch?v=rMD3A5BgDxE)
+- [Video tutorial](https://www.youtube.com/watch?v=O8epzPrsADI)
+- [Vitesse, markdown](https://www.youtube.com/watch?v=rMD3A5BgDxE)
 
 ## Install ESLint + Prettier
 ```

@@ -1,21 +1,50 @@
-<script setup>
+<!-- <script setup>
 // This starter template is using Vue 3 <script setup> SFCs
 // Check out https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup
-import HelloWorld from './components/HelloWorld.vue'
-</script>
+</script> -->
 
 <template>
-  <img alt="Vue logo" src="./assets/logo.png" />
-  <HelloWorld msg="Hello Vue 3 + Vite" />
+  <div class="wrapper">
+
+    <header>
+      <div class="navbar">
+        <div class="container">
+          <div class="navbar-content">
+            <div class="logo">VUE-CLI</div>
+            <ul class="navbar-list">
+              <li class="navbar-item" v-for="link in links" :key="link.title">
+                <router-link class="navbar-link" :title="link.title" :to="link.url">{{ link.title }}</router-link>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <router-view></router-view>
+
+    <!-- <footer></footer> -->
+
+  </div>
 </template>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+<script>
+export default {
+  data () {
+    return {
+      links: [
+        { title: 'Home', url: '/' },
+        { title: 'Shop', url: '/shop' },
+      ]
+    }
+  }
+}
+</script>
+
+<style lang="scss">
+.navbar-link {
+  &.router-link-exact-active {
+    color: #5247e7;
+  }
 }
 </style>
