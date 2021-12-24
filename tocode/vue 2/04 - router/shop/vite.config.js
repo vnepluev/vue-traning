@@ -8,3 +8,7 @@ export default defineConfig({
   filenameHashing: true,
   productionSourceMap: false
 })
+
+// ** настроить алиас @
+// https://vitejs.dev/config/#resolve-alias
+// https://github.com/rollup/plugins/tree/master/packages/alias#entries

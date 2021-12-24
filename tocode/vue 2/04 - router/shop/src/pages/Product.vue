@@ -6,15 +6,8 @@
 
           <!-- slider -->
           <div class="product-slider">
-            <carousel
-              :perPage="1"
-              :paginationEnable="true"
-              paginationColor="#b3b3b3"
-              paginationActiveColor="#494ce8">
-              <slide v-for="(slide, index) in product.gallery" :key="index">
-                <img :src="slide.img" :alt="slide.name">
-              </slide>
-            </carousel>
+            <img :src="product.img" :alt="product.title">
+            
           </div>
 
           <!-- content -->
@@ -37,7 +30,7 @@ export default {
   },
   created () {
     // console.log({route: this.$route, id: this.$route.params.id})
-    let id = this.$route.params.id
+    const id = this.$route.params.id
     this.product = this.$store.getters.getProduct(id)
   }
 }
