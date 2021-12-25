@@ -6,8 +6,22 @@
 
           <!-- slider -->
           <div class="product-slider">
-            <img :src="product.img" :alt="product.title">
-            
+            <!-- <img :src="product.img" :alt="product.title"> -->
+
+            <carousel
+             :items-to-show="1"
+             :itemsToScroll="1"
+             :wrapAround="true">
+              <slide v-for="(slide, index) in product.gallery" :key="index">
+                <img :src="slide.img" :alt="slide.name">
+              </slide>
+
+              <template #addons>
+                <navigation />
+                <pagination />
+              </template>
+            </carousel>
+
           </div>
 
           <!-- content -->
@@ -22,6 +36,10 @@
 </template>
 
 <script>
+// If you are using PurgeCSS, make sure to whitelist the carousel CSS classes
+import 'vue3-carousel/dist/carousel.css';
+import { Carousel, Slide, Pagination, Navigation } from 'vue3-carousel';
+
 export default {
   data() {
     return {
@@ -32,6 +50,12 @@ export default {
     // console.log({route: this.$route, id: this.$route.params.id})
     const id = this.$route.params.id
     this.product = this.$store.getters.getProduct(id)
+  },
+  components: {
+    Carousel,
+    Slide,
+    Pagination,
+    Navigation,
   }
 }
 </script>
