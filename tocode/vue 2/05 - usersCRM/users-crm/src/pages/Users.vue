@@ -8,9 +8,9 @@
           <!-- head -->
           <thead>
             <tr>
-              <th @click="sort('name')">Name</th>
-              <th @click="sort('age')">Age</th>
-              <th @click="sort('gender')">Gender</th>
+              <th @click="sort('name')">Name <span v-html="arrow"></span></th>
+              <th @click="sort('age')">Age <span v-html="arrow"></span></th>
+              <th @click="sort('gender')">Gender <span v-html="arrow"></span></th>
             </tr>
           </thead>
           <!-- /head -->
@@ -30,7 +30,20 @@
 
         </table>
         <!-- /table -->
-        <p>sort: {{ currentSort }} - {{ currentSortDir }}</p>
+        <p>
+          <span>sort: {{ currentSort }} - {{ currentSortDir }}</span>
+          <p>page: {{ page.current }}</p>
+        </p>
+      </div>
+    </section>
+
+    <!-- buttons -->
+    <section>
+      <div class="container">
+        <div class="button-list">
+          <div class="btn btnPrimary" @click="prevPage">&#8592;</div>
+          <div class="btn btnPrimary" @click="nextPage">&#8594;</div>
+        </div>
       </div>
     </section>
   </div>
@@ -46,7 +59,11 @@ export default {
     return {
       users: [],
       currentSort: 'name',
-      currentSortDir: 'asc'
+      currentSortDir: 'asc',
+      page: {
+        current: 1,
+        length: 3
+      }
     }
   },
   created() {
@@ -67,23 +84,49 @@ export default {
         this.currentSortDir = (this.currentSortDir === 'asc') ? 'desc' : 'asc'
       };
       this.currentSort = e;
+    },
+    // pagination
+    prevPage() {
+      if (this.page.current > 1) this.page.current -= 1
+    },
+    nextPage() {
+      if ( (this.page.current * this.page.length) < this.users.length) {
+        this.page.current += 1
+      };
     }
   },
   computed: {
     usersSort() {
       return this.users.sort( (a, b) => {
         let mod = 1;
-        console.log(a[this.currentSort]);
         if (this.currentSortDir === 'desc') mod = -1;
         if (a[this.currentSort] < b[this.currentSort]) return -1 * mod;
         if (a[this.currentSort] > b[this.currentSort]) return 1 * mod;
-      })
+      }).filter( (row, index) => {
+        let start = (this.page.current - 1) * this.page.length;
+        let end = this.page.current * this.page.length;
+        if (index >= start && index < end) return true;
+
+      } );
+    },
+    arrow() {
+      const res = this.currentSortDir === 'asc' ? '&#8595;' : '&#8593;';
+      return res;
     }
   }
 }
 </script>
 
 <style lang="scss" scoped>
+.button-list {
+  width: 100%;
+  text-align: center;
+  .btn {
+    border-radius: 60px;
+    margin: 0 20px;
+  }
+}
+
 img {
   width: 60px;
   height: auto;
