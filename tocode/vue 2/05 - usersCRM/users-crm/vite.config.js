@@ -1,10 +1,16 @@
-import { defineConfig } from 'vite'
-import vue from '@vitejs/plugin-vue'
-import babel from "vite-babel-plugin";
+import { defineConfig } from 'vite';
+import vue from '@vitejs/plugin-vue';
+import babel from 'vite-babel-plugin';
+import path from 'path';
 
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [vue(), babel()],
+  resolve: {
+    alias: {
+      '@': path.resolve(__dirname, './src'),
+    },
+  },
   filenameHashing: true,
   productionSourceMap: false
 })
