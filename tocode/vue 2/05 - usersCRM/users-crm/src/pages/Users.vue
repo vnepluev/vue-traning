@@ -110,7 +110,7 @@ export default {
       } );
     },
     arrow() {
-      const res = this.currentSortDir === 'asc' ? '&#8595;' : '&#8593;';
+      const res = this.currentSortDir === 'asc' ? '&#8593;' : '&#8595;';
       return res; 
     }
   }
