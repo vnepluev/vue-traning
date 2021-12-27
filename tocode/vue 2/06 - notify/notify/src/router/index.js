@@ -1,6 +1,6 @@
 import { createRouter, createWebHashHistory } from "vue-router";
 import Home from '../pages/Home.vue';
-import Notify from '../pages/Notify.vue';
+import Notify from '../pages/NotifyPage.vue';
 import NotFound from '../pages/404.vue';
 
 const routes = [
