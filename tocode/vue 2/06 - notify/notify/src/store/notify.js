@@ -2,11 +2,24 @@
 
 export default {
   state: {
+    messages: [],
+
   },
-  mutations: {},
-  actions: {},
+  mutations: {
+    setMessage(state, payload) {
+      state.messages = payload
+    }
+  },
+  actions: {
+    setMessage({commit}, payload) {
+      commit('setMessage', payload)
+    },
+  },
   getters: {
     // первым параметром всегда идет state
     // вторым идет getters (имена можем давать произвольные)
+    getMessage(state) {
+      return state.messages
+    },
   },
 }
