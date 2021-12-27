@@ -111,7 +111,7 @@ export default {
     },
     arrow() {
       const res = this.currentSortDir === 'asc' ? '&#8595;' : '&#8593;';
-      return res;
+      return res; 
     }
   }
 }
