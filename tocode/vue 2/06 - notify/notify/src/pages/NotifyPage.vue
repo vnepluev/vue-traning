@@ -38,7 +38,7 @@ import preloader from '@/components/UI/Preloader.vue';
 
 export default {
   components: { notify, preloader },
-  data () {
+  data() {
     return {
       loading: false,
     }
@@ -59,8 +59,18 @@ export default {
       axios
         .get('https://tocode.ru/static/_secret/courses/1/notifyApi.php')
           .then((response) => {
+            const messages = [];
+            const messagesMain = [];
             const res = response.data.notify;
-            this.$store.dispatch('setMessage', res);
+
+            // filter
+            for(i = 0;i < res.length; i++) {
+              if (res[i].main) messagesMain.push(res[i])
+              else messages.push(res[i])
+            }
+
+            this.$store.dispatch('setMessage', messages);
+            this.$store.dispatch('setMessageMain', messagesMain);
           })
           .catch((error) => console.log(error))
           .finally( () => (this.loading = false) )
@@ -68,7 +78,7 @@ export default {
   },
   computed: {
     messages() {
-      return this.$store.getters.getMessage
+      return this.$store.getters.getMessageMain
     },
   }
 }
