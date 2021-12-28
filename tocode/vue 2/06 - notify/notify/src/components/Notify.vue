@@ -5,13 +5,13 @@
         <td> <span>{{ message.title }}</span> </td>
       </tr>
     </transition-group>
-    <!-- <button
+    <button
       class="btn btnPrimary"
       @click="loadMore"
       :disabled="maxLength === 0"
       :class="{btnDisabled: maxLength === 0}">
         Load more
-    </button> -->
+    </button>
   </table>
 </template>
 
@@ -30,6 +30,7 @@ export default {
   },
   methods: {
     loadMore () {
+      // logic
       this.$store.dispatch('loadMessages')
         .catch(err => { console.log(err) })
     }

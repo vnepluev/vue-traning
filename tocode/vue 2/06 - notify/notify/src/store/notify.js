@@ -1,4 +1,4 @@
-// require('../assets/img/1.png') -> import png1 from '../assets/img/1.png' -> png1
+import loadMore from "@/assets/js/loadmore.js"
 
 export default {
   state: {
@@ -12,6 +12,10 @@ export default {
     setMessageMain(state, payload) {
       state.messagesMain = payload
     },
+    loadMessages(state, payload) {
+      // logic
+      state.messagesMain = [...state.messagesMain, ...payload]
+    },
   },
   actions: {
     setMessage({commit}, payload) {
@@ -20,12 +24,21 @@ export default {
     setMessageMain({commit}, payload) {
       commit('setMessageMain', payload)
     },
+    loadMessages({commit, getters}) {
+      const res = getters.getMessageFilter
+      commit('loadMessages', loadMore(res))
+    },
   },
   getters: {
     // первым параметром всегда идет state
     // вторым идет getters (имена можем давать произвольные)
     getMessage(state) {
       return state.messages
+    },
+    getMessageFilter(state) {
+      return state.messages.filter( (mes) => {
+        return mes.main === false
+      })
     },
     getMessageMain(state) {
       return state.messagesMain

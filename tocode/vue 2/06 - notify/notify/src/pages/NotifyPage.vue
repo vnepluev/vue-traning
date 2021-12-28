@@ -64,7 +64,7 @@ export default {
             const res = response.data.notify;
 
             // filter
-            for(i = 0;i < res.length; i++) {
+            for(let i = 0; i < res.length; i++) {
               if (res[i].main) messagesMain.push(res[i])
               else messages.push(res[i])
             }
@@ -89,7 +89,7 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 90vh;
+  height: auto;
 }
 
 .notify__wrapper {
