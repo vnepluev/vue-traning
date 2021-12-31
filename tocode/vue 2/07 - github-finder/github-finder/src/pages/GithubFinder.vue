@@ -8,7 +8,7 @@
           <p>{{ error }}</p>
         </div>
 
-        <!-- search -->
+        <!-- search username -->
         <search
           :value="search"
           placeholder="Type username..."
