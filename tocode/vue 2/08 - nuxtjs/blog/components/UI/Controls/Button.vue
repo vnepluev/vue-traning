@@ -1,6 +1,9 @@
 <template>
 <!-- $listeners помогает нам не описывать массу событий типа click, blure и т.п.
-      а принимать их в компоненте, подвешивая на нужные нам события -->
+      а принимать их в компоненте, подвешивая на нужные нам события
+      https://v3.vuejs.org/guide/migration/listeners-removed.html#_2-x-syntax
+      !Было удалено во Vue 3
+      -->
 <button
   class="btn"
   :class="btnClass"
