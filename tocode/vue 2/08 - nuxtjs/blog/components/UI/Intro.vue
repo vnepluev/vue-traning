@@ -2,6 +2,7 @@
 <section class="intro">
   <div class="container">
     <h2>{{ title }}</h2>
+    <slot />
   </div>
 </section>
 </template>
@@ -22,7 +23,7 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .intro {
   width: 100%;
   margin: 30px 0;
