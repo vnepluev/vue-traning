@@ -1,17 +1,14 @@
 <template>
-<section class="contact">
+<section class="new-comment">
   <div class="container">
-    <h2 class="title">Contact me!</h2>
     <form @submit.prevent="onSubmit" class="contact-form">
       <label for="">Name: </label>
-      <input type="text" v-model="user.name">
-      <label for="">E-mail: </label>
-      <input type="text" v-model="user.email">
+      <input type="text" v-model="comment.name">
       <label for="">Text: </label>
-      <textarea v-model="user.text"></textarea>
+      <textarea v-model="comment.text"></textarea>
       <!-- buttons -->
       <div class="controls">
-        <app-button btnClass="btnWhite">Submit!</app-button>
+        <app-button>Submit!</app-button>
       </div>
     </form>
   </div>
@@ -19,36 +16,29 @@
 </template>
 
 <script>
-import AppButton from "./UI/Controls/Button.vue";
+import AppButton from "../UI/Controls/Button.vue";
 
 export default {
-  components: { AppButton },
   data() {
     return {
-      user: {
+      comment: {
         name: '',
-        email: '',
         text: ''
       }
     }
   },
   methods: {
     onSubmit() {
-      console.log(this.user);
+      console.log(this.comment);
     },
   },
+  components: { AppButton }
 }
 </script>
 
 <style lang="scss">
-.contact {
+.new-comment {
   text-align: center;
-  background-color: #4f68f4;
-  color: #fff;
-
-  .title {
-    color: #fff;
-  }
 
   .controls {
     margin: 30px 0;
