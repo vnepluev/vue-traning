@@ -5,6 +5,7 @@
       <post-preview
         v-for="post in posts"
         :key="post.id"
+        :admin="admin"
         :post="post" />
     </div>
   </div>
@@ -17,6 +18,10 @@ import postPreview from '~/components/Blog/PostPreview.vue'
 
 export default {
   props: {
+    admin: {
+      type: Boolean,
+      default: false
+    },
     posts: {
       type: Array,
       required: true
