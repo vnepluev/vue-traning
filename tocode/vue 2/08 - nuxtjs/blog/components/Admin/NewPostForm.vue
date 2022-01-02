@@ -1,0 +1,52 @@
+<template>
+<section class="new-post">
+  <div class="container">
+    <form @submit.prevent>
+      <AppInput v-model="post.title">Title: </AppInput>
+      <AppInput v-model="post.descr">Description: </AppInput>
+      <AppInput v-model="post.img">Img link: </AppInput>
+      <AppTextArea v-model="post.content">Content: </AppTextArea>
+      <!-- controls -->
+      <div class="controls">
+        <AppButton @click="cancel" class="btnDanger">Cancel</AppButton>
+        <AppButton @click="onSubmit">Save</AppButton>
+      </div>
+    </form>
+  </div>
+</section>
+</template>
+
+<script>
+import AppInput from "../UI/Controls/Input.vue"
+import AppTextArea from "../UI/Controls/TextArea.vue"
+import AppButton from "../UI/Controls/Button.vue"
+
+export default {
+  components: { AppInput, AppTextArea, AppButton },
+  data() {
+    return {
+      post: {
+        title: '',
+        descr: '',
+        content: '',
+        img: '',
+      }
+    }
+  },
+  methods: {
+    onSubmit() {
+      this.$emit('submit', this.post)
+    },
+    cancel() {
+      this.$router.push('/admin')
+    }
+  }
+}
+</script>
+
+<style lang="scss" scoped>
+.controls {
+  text-align: center;
+  margin: 20px 0;
+}
+</style>
