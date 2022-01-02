@@ -18,7 +18,6 @@ import AppInput from "~/components/UI/Controls/Input.vue"
 import AppButton from "~/components/UI/Controls/Button.vue"
 
 export default {
-  layout: 'admin',
   components: { AppInput, AppButton },
   data() {
     return {
@@ -47,7 +46,7 @@ export default {
   justify-content: center;
   flex-direction: column;
   width: 100%;
-  height: 40vh;
+  height: 70vh;
   input {
     min-width: 460px;
   }

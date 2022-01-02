@@ -20,7 +20,8 @@ import Header1 from "~/components/system/Header.vue"
 import Intro from "~/components/UI/Intro.vue"
 
 export default {
-  components: { Header1, Intro }
+  components: { Header1, Intro },
+  middleware: ['auth'],
 }
 </script>
 
