@@ -10,7 +10,10 @@ export default {
   layout: 'admin',
   methods: {
     onSubmit(post) {
-      console.log('Post added!', post);
+      this.$store.dispatch('addPost', post)
+        .then(() => {
+          this.$router.push('/admin')
+        })
     },
   }
 }
