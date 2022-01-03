@@ -4,7 +4,7 @@
     <promo />
     <intro title="My lasts posts:" />
     <!-- posts -->
-    <posts-lists :posts="posts" />
+    <posts-lists :posts="postsLoaded" />
     <contacts />
   </div>
 </template>
@@ -18,27 +18,12 @@ import intro from '~/components/UI/Intro.vue'
 import postsLists from '~/components/Blog/PostsLists.vue'
 import contacts from '~/components/Contacts.vue'
 
-// картинки собак
-import dog1 from '~/assets/img/dog1.jpg'
-
 export default {
   name: 'IndexPage',
-  data() {
-    return {
-      posts: [],
+  computed: {
+    postsLoaded() {
+      return this.$store.getters.getPostLoaded
     }
-  },
-  created() {
-    setTimeout(()=> {
-      this.posts = [
-        {
-          id: 1,
-          title: 'Title 1',
-          descr: 'lorem5 lorem5 lorem5 lorem5 lorem5 lorem5 lorem5',
-          img: dog1
-        },
-      ]
-    }, 1000)
   },
   components: { header1, promo, intro, postsLists, contacts },
 }
