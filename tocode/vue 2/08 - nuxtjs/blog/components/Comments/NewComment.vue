@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import AppButton from "../UI/Controls/Button.vue";
+import AppButton from '../UI/Controls/Button.vue'
 
 export default {
   data() {
@@ -29,7 +29,15 @@ export default {
   },
   methods: {
     onSubmit() {
-      console.log(this.comment);
+      this.$store.dispatch('addComment', {
+        postId: '',
+        publish: false,
+        ...this.comment
+      })
+        .then(() => {
+          console.log('Comment Submitted!', this.comment)
+        })
+        .catch(e => console.log(e))
     },
   },
   components: { AppButton }

@@ -3,6 +3,7 @@ import axios from "axios";
 // nuxt предлагает нам разделить функции store для оптимизации
 export const state = () => ({
   postsLoaded: [],
+  commentsLoaded: [],
 })
 
 export const mutations = {
@@ -10,13 +11,17 @@ export const mutations = {
     state.postsLoaded = post
   },
   addPost(state, post) {
-    console.log(post);
+    console.log(post)
     state.postsLoaded.push(post)
   },
   editPost(state, postEdit) {
     const postIndex = state.postsLoaded.findIndex(post => post.id === postEdit)
     state.postsLoaded[postIndex] = postEdit
-  }
+  },
+  addComment(state, comment) {
+    console.log(comment)
+    state.commentsLoaded.push(comment)
+  },
 }
 
 export const actions = {
@@ -49,7 +54,14 @@ export const actions = {
         commit('editPost', post)
       })
       .catch(e => console.log(e))
-  }
+  },
+  addComment({commit}, comment) {
+    return axios.post('https://tocode-blog-nuxt-70750-default-rtdb.firebaseio.com/comments.json', comment)
+      .then(res => {
+        commit('addComment', {...comment, id: res.data.name})
+      })
+      .catch(e => console.log(e))
+  },
 }
 
 export const getters = {
