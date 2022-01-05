@@ -2,30 +2,40 @@
   <div class="wrapper-content wrapper-content--fixed">
     <post :post="post" />
     <comments :comments="comments" />
-    <new-comment />
+    <new-comment :postId="$route.params.id" />
   </div>
 </template>
 
 <script>
-import dog1 from '~/assets/img/dog1.jpg'
+//import dog1 from '~/assets/img/dog1.jpg'
+import axios from 'axios'
 import post from '~/components/Blog/Post.vue'
 import newComment from '~/components/Comments/NewComment.vue'
 import comments from '~/components/Comments/Comments.vue'
 
 export default {
-  data() {
+  async asyncData(context) {
+    let [post, comments] = await Promise.all([
+      axios.get(`https://tocode-blog-nuxt-70750-default-rtdb.firebaseio.com/posts/${context.params.id}.json`),
+      axios.get(`https://tocode-blog-nuxt-70750-default-rtdb.firebaseio.com/comments.json`)
+    ])
+
+    // const commentsArray = []
+    // const commentsArrayRes = []
+    // Object.keys(comments.data).forEach(key => {
+    //   commentsArray.push(comments.data[key])
+    // })
+    // // выводим комментарии у которых id совпадают с постом и publish = true
+    // for(let i = 0; i < commentsArray.length; i++) {
+    //   if (commentsArray[i].postId === context.params.id && commentsArray[i].publish === true) {
+    //     commentsArrayRes.push(commentsArray[i])
+    //   }
+    // }
+    const commentsArrayRes = Object.values(comments.data).filter(comment => (comment.postId === context.params.id) && comment.publish === true)
+
     return {
-      post: {
-          id: 1,
-          title: 'Title 1',
-          descr: 'lorem5 lorem5 lorem5 lorem5 lorem5 lorem5 lorem5',
-          content: 'lorem10lorem10lorem10lorem10lorem10lorem10lorem10lorem10lorem10lorem10lorem10lorem10lorem10',
-          img: dog1
-      },
-      comments: [
-        { name: 'Alex', text: 'Привет, это первый коммент' },
-        { name: 'Valeriy', text: 'Привет, это второй коммент' },
-      ]
+      post: post.data,
+      comments: commentsArrayRes,
     }
   },
   components: { post, comments, newComment },

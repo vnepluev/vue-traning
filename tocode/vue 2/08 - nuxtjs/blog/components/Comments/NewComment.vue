@@ -19,6 +19,12 @@
 import AppButton from '../UI/Controls/Button.vue'
 
 export default {
+  props: {
+    postId: {
+      type: String,
+      reguired: true
+    }
+  },
   data() {
     return {
       comment: {
@@ -30,8 +36,8 @@ export default {
   methods: {
     onSubmit() {
       this.$store.dispatch('addComment', {
-        postId: '',
-        publish: false,
+        postId: this.postId,
+        publish: true,
         ...this.comment
       })
         .then(() => {
