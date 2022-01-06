@@ -1,6 +1,11 @@
 <template>
 <section class="new-comment">
   <div class="container">
+    <h2 class="title">New Comment:</h2>
+
+    <!-- message -->
+    <app-message v-if="message" :message="message" />
+
     <form @submit.prevent="onSubmit" class="contact-form">
       <label for="">Name: </label>
       <input type="text" v-model="comment.name">
@@ -16,7 +21,9 @@
 </template>
 
 <script>
-import AppButton from '../UI/Controls/Button.vue'
+import AppButton from '~/components/UI/Controls/Button.vue'
+import AppMessage from "~/components/UI/Message.vue";
+
 
 export default {
   props: {
@@ -27,6 +34,7 @@ export default {
   },
   data() {
     return {
+      message: null,
       comment: {
         name: '',
         text: ''
@@ -35,6 +43,7 @@ export default {
   },
   methods: {
     onSubmit() {
+      this.message = 'Submited!'
       this.$store.dispatch('addComment', {
         postId: this.postId,
         publish: false,
@@ -46,7 +55,7 @@ export default {
         .catch(e => console.log(e))
     },
   },
-  components: { AppButton }
+  components: { AppButton, AppMessage }
 }
 </script>
 
