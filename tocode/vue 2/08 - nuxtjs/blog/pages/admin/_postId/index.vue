@@ -7,7 +7,6 @@
 <script>
 import axios from 'axios'
 import newPostForm from '~/components/Admin/NewPostForm.vue'
-import dog1 from '~/assets/img/dog1.jpg'
 
 export default {
   components: { newPostForm },

@@ -3,18 +3,21 @@
 
 export default function (context) {
   // Universal keys
-  const {
-    app,
-    store,
-    route,
-    params,
-    query,
-    env,
-    isDev,
-    isHMR,
-    redirect,
-    error,
-    $config
-  } = context
-  console.log(context);
+  // const {
+  //   app,
+  //   store,
+  //   route,
+  //   params,
+  //   query,
+  //   env,
+  //   isDev,
+  //   isHMR,
+  //   redirect,
+  //   error,
+  //   $config
+  // } = context
+  // console.log(context);
+  if (!context.store.getters.checkAuthUser) {
+    context.redirect('/admin/auth')
+  }
 }

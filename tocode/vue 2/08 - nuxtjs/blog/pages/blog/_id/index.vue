@@ -7,7 +7,6 @@
 </template>
 
 <script>
-//import dog1 from '~/assets/img/dog1.jpg'
 import axios from 'axios'
 import post from '~/components/Blog/Post.vue'
 import newComment from '~/components/Comments/NewComment.vue'

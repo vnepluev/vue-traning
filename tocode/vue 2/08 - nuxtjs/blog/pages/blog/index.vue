@@ -14,9 +14,6 @@ import header1 from '@/components/system/Header.vue'
 import intro from '~/components/UI/Intro.vue'
 import postsLists from '~/components/Blog/PostsLists.vue'
 
-// картинки собак
-import dog1 from '~/assets/img/dog1.jpg'
-
 export default {
   name: 'IndexPage',
   data() {
