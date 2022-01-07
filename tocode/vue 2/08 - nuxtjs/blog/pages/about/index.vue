@@ -23,7 +23,22 @@ import header1 from '@/components/system/Header.vue'
 import intro from "~/components/UI/Intro.vue"
 
 export default {
-  components: { header1, intro }
+  components: { header1, intro },
+  // SEO Block
+  head() {
+    const title = 'About My Blog Page'
+    const descr = 'About My SSR blog! With Nuxt.js!'
+    const type = 'site' // подходит для главной страницы
+    return {
+      title: title,
+      meta: [
+        { hid: 'og:title', name: 'og:title', content: title },
+        { hid: 'description', name: 'description', content: descr },
+        { hid: 'og:description', name: 'og:description', content: descr },
+        { hid: 'og:type', name: 'og:type', content: type },
+      ],
+    }
+  },
 }
 </script>
 

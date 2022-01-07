@@ -16,6 +16,22 @@ import postsLists from '~/components/Blog/PostsLists.vue'
 
 export default {
   name: 'IndexPage',
+  components: { header1, intro, postsLists },
+  // SEO Block
+  head() {
+    const title = 'My Blog Page'
+    const descr = 'My SSR blog! With Nuxt.js!'
+    const type = 'site' // подходит для главной страницы
+    return {
+      title: title,
+      meta: [
+        { hid: 'og:title', name: 'og:title', content: title },
+        { hid: 'description', name: 'description', content: descr },
+        { hid: 'og:description', name: 'og:description', content: descr },
+        { hid: 'og:type', name: 'og:type', content: type },
+      ],
+    }
+  },
   data() {
     return {
       posts: [],
@@ -26,6 +42,5 @@ export default {
       return this.$store.getters.getPostLoaded
     }
   },
-  components: { header1, intro, postsLists },
 }
 </script>

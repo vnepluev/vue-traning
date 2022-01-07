@@ -13,6 +13,23 @@ import newComment from '~/components/Comments/NewComment.vue'
 import comments from '~/components/Comments/Comments.vue'
 
 export default {
+  // SEO Block - динамическое получение заголовка и описания страницы
+  head() {
+    const title = this.post.title
+    const descr = this.post.descr
+    const img = this.post.img // ** обязательно добавить адрес сайта (полный путь)
+    const type = 'article' // подходит для страниц блока с контентом
+    return {
+      title: title,
+      meta: [
+        { hid: 'og:title', name: 'og:title', content: title },
+        { hid: 'description', name: 'description', content: descr },
+        { hid: 'og:description', name: 'og:description', content: descr },
+        { hid: 'og:type', name: 'og:type', content: type },
+        { hid: 'og:img', name: 'og:img', content: img },
+      ],
+    }
+  },
   async asyncData(context) {
     let [post, comments] = await Promise.all([
       axios.get(`https://tocode-blog-nuxt-70750-default-rtdb.firebaseio.com/posts/${context.params.id}.json`),

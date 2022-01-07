@@ -22,8 +22,7 @@
 
 <script>
 import AppButton from '~/components/UI/Controls/Button.vue'
-import AppMessage from "~/components/UI/Message.vue";
-
+import AppMessage from '~/components/UI/Message.vue'
 
 export default {
   props: {
