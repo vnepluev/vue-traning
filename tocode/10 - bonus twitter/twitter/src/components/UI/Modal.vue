@@ -29,7 +29,8 @@ export default {
   // ** базовый вариант с context и рабочий вариант с деструктуризацией,
   // ** в котором мы из context выстаскиваем {emit, attrs} т.п. значения
   // ** setup(props, context) {
-    setup(props, {emit}) {
+  setup(props, {emit}) {
+
     // закрытие окна
     const handleCloseModal = () => {
       // отправляем emit
@@ -37,7 +38,7 @@ export default {
       emit('onClose')
     }
 
-    return { handleCloseModal, }
+    return { handleCloseModal }
   }
 }
 </script>
