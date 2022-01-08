@@ -3,17 +3,27 @@
   <spinner />
 </div>
 <div v-else>
+  <div class="tweet-menu-wrapper">
+    <div class="tweet-menu">
+      <select v-model="sortBy" name="sortBy">
+        <option value="date">Sort by date</option>
+        <option value="likes">Sort by likes</option>
+      </select>
+    </div>
+  </div>
+
   <div class="tweets__wrapper" v-for="item in dataSortered" :key="item.id">
     <tweet :id="item.id" :likes="item.likes" :name="item.date" :imgUrl="item.avatar">
       <div>{{ item.body }}</div>
     </tweet>
   </div>
 
-  <button @click="handleModalShow" class="btn btnPrimary">Open Modal</button>
+  <button @click="handleModalShow" class="btn btnPrimary btnTweet btnTweetHome">New tweet</button>
   <modal
+    title="New Tweet"
     v-if="showModal"
     @onClose="handleModalShow"
-  >modal show</modal>
+  >todo: logic for form</modal>
 </div>
 </template>
 
@@ -72,7 +82,7 @@ export default {
     })
 
 
-    return { isLoading, showModal, handleModalShow, dataSortered }
+    return { isLoading, showModal, handleModalShow, sortBy, dataSortered }
   }
 };
 </script>
