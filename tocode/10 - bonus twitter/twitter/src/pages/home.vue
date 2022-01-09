@@ -28,17 +28,24 @@
     title="New Tweet"
     v-if="showModal"
     @onClose="handleModalShow">
-    <tweet-form @onSubmit="handleTweetSubmit" />
+      <!-- <tweet-form @onSubmit="handleTweetSubmit" /> -->
+      <form @submit.prevent="handleStore">
+        <textarea name="body" id="body" v-model="tweet.body"></textarea>
+        <button class="btn btnPrimary btnTweet" type="submit">Submit</button>
+      </form>
   </modal>
 </div>
 </template>
 
 <script>
-import { ref, computed } from 'vue'
+// базовые настройки axios firebase
+import http from '../http-common.js'
+import { ref, reactive, computed } from 'vue'
+
 import Spinner from '../components/UI/Spinner.vue'
 import Modal from '../components/UI/Modal.vue'
 import Tweet from '../components/UI/Tweet.vue';
-import TweetForm from '../components/UI/TweetForm.vue';
+import TweetForm from '../components/UI/TweetForm.vue'
 
 export default {
   components: {
@@ -74,7 +81,7 @@ export default {
       },
     ])
 
-    const showModal = ref(false)
+    const showModal = ref(true)
     const handleModalShow = () => {
       // решает проблему с быстрым переключением модального окна
       const nextShowModal = showModal.value = !showModal.value
@@ -104,7 +111,29 @@ export default {
       handleModalShow()
     }
 
-    return { isLoading, showModal, handleModalShow, sortBy, handleLikeSubmit, handleTweetSubmit, dataSortered }
+    const tweet = reactive({
+      likes: 0,
+      avatar: 'https://tocode.ru/static/_secret/bonuses/1/avatar-1Tq9kaAql.png',
+      date: new Date(Date.now()).toLocaleString(),
+      body: ''
+    })
+
+    const handleStore = () => {
+      http.post('/tweets.json', tweet)
+      console.log(tweet.body)
+    }
+
+    return {
+      isLoading,
+      showModal,
+      handleModalShow,
+      sortBy,
+      handleLikeSubmit,
+      handleTweetSubmit,
+      dataSortered,
+      handleStore,
+      tweet,
+    }
   }
 };
 </script>
