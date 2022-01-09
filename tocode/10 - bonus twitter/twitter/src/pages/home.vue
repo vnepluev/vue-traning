@@ -13,8 +13,13 @@
   </div>
 
   <div class="tweets__wrapper" v-for="item in dataSortered" :key="item.id">
-    <tweet :id="item.id" :likes="item.likes" :name="item.date" :imgUrl="item.avatar">
-      <div>{{ item.body }}</div>
+    <tweet
+      :id="item.id"
+      :likes="item.likes"
+      :name="item.date"
+      :imgUrl="item.avatar"
+      @onSubmit="handleLikeSubmit">
+        <div>{{ item.body }}</div>
     </tweet>
   </div>
 
@@ -22,8 +27,9 @@
   <modal
     title="New Tweet"
     v-if="showModal"
-    @onClose="handleModalShow"
-  >todo: logic for form</modal>
+    @onClose="handleModalShow">
+    <tweet-form @onSubmit="handleTweetSubmit" />
+  </modal>
 </div>
 </template>
 
@@ -32,17 +38,19 @@ import { ref, computed } from 'vue'
 import Spinner from '../components/UI/Spinner.vue'
 import Modal from '../components/UI/Modal.vue'
 import Tweet from '../components/UI/Tweet.vue';
+import TweetForm from '../components/UI/TweetForm.vue';
 
 export default {
   components: {
     Spinner,
     Modal,
-    Tweet
+    Tweet,
+    TweetForm
   },
   setup() {
     const isLoading = ref(false)
 
-    const data = [
+    const data = ref([
       {
         id: 1,
         body: 'Hi word!',
@@ -64,7 +72,7 @@ export default {
         likes: 8,
         date: '06-01-2022'
       },
-    ]
+    ])
 
     const showModal = ref(false)
     const handleModalShow = () => {
@@ -75,14 +83,28 @@ export default {
 
     const sortBy = ref('likes')
     const dataSortered = computed(() => {
-      return data.sort((a,b) => {
+      return data.value.sort((a,b) => {
         if (a[sortBy.value] < b[sortBy.value]) return 1
         if (a[sortBy.value] > b[sortBy.value]) return -1
       })
     })
 
+    const handleLikeSubmit = (id) => {
+      console.log(`Tweet id=${id} has been liked`);
+    }
 
-    return { isLoading, showModal, handleModalShow, sortBy, dataSortered }
+    const handleTweetSubmit = (body) => {
+      data.value.push({
+        id: data.value.length + 1,
+        body,
+        avatar: 'https://tocode.ru/static/_secret/bonuses/1/avatar-1Tq9kaAql.png',
+        likes: 0,
+        date: new Date(Date.now()).toLocaleString()
+      })
+      handleModalShow()
+    }
+
+    return { isLoading, showModal, handleModalShow, sortBy, handleLikeSubmit, handleTweetSubmit, dataSortered }
   }
 };
 </script>

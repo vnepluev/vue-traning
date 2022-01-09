@@ -7,7 +7,7 @@
       <span class="tweet-name">{{ name }}</span>
       <slot></slot>
 
-      <p class="tweet-likes-counter">
+      <p @click="handleLikeClick" class="tweet-likes-counter">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="14"
@@ -47,6 +47,13 @@ export default {
       type: String,
       default: null
     }
+  },
+  emits: ['onSubmit'],
+  // context.emit
+  setup(props, {emit}) {
+    const handleLikeClick = () => emit('onSubmit', props.id)
+
+    return { handleLikeClick }
   }
 }
 </script>

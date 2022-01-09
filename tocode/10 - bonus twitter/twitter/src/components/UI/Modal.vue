@@ -26,9 +26,11 @@ export default {
       default: 'Modal'
     }
   },
+  emits: ['onClose'],
   // ** базовый вариант с context и рабочий вариант с деструктуризацией,
   // ** в котором мы из context выстаскиваем {emit, attrs} т.п. значения
   // ** setup(props, context) {
+  // props ниже можно заменить '_' таким знаком
   setup(props, {emit}) {
 
     // закрытие окна
