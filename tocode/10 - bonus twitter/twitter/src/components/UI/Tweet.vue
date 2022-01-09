@@ -51,7 +51,7 @@ export default {
   emits: ['onSubmit'],
   // context.emit
   setup(props, {emit}) {
-    const handleLikeClick = () => emit('onSubmit', props.id)
+    const handleLikeClick = () => emit('onSubmit', props)
 
     return { handleLikeClick }
   }

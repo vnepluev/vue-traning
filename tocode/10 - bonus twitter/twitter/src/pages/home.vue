@@ -18,7 +18,7 @@
       :likes="item.likes"
       :name="item.date"
       :imgUrl="item.avatar"
-      @onSubmit="handleLikeSubmit">
+      @onSubmit="handleLikeSubmit(item)">
         <div>{{ item.body }}</div>
     </tweet>
   </div>
@@ -40,7 +40,7 @@
 <script>
 // базовые настройки axios firebase
 import http from '../http-common.js'
-import { ref, reactive, computed } from 'vue'
+import { onMounted, ref, reactive, computed } from 'vue'
 
 import Spinner from '../components/UI/Spinner.vue'
 import Modal from '../components/UI/Modal.vue'
@@ -55,33 +55,36 @@ export default {
     TweetForm
   },
   setup() {
-    const isLoading = ref(false)
+    const isLoading = ref(true)
 
     const data = ref([
-      {
-        id: 1,
-        body: 'Hi word!',
-        avatar: 'https://tocode.ru/static/_secret/bonuses/1/avatar-1Tq9kaAql.png',
-        likes: 10,
-        date: '08-01-2022'
-      },
-      {
-        id: 2,
-        body: 'Hello bro? How are you?',
-        avatar: 'https://tocode.ru/static/_secret/bonuses/1/avatar-1Tq9kaAql.png',
-        likes: 12,
-        date: '07-01-2022'
-      },
-      {
-        id: 3,
-        body: 'Im fine bro! Happy New Year!',
-        avatar: 'https://tocode.ru/static/_secret/bonuses/1/avatar-1Tq9kaAql.png',
-        likes: 8,
-        date: '06-01-2022'
-      },
+      // {
+      //   id: 1,
+      //   body: 'Hi word!',
+      //   avatar: 'https://tocode.ru/static/_secret/bonuses/1/avatar-1Tq9kaAql.png',
+      //   likes: 10,
+      //   date: '08-01-2022'
+      // },
     ])
 
-    const showModal = ref(true)
+    onMounted(() => getTweets())
+
+    const getTweets = () => http.get('/tweets.json')
+      .then((res) => {
+        // вынимаем данные id и преобразуем в удобоваримый формат -> в новом массиве
+        const nextData = []
+        Object.keys(res.data).forEach(key => {
+          const item = res.data[key]
+          nextData.push({id: key, ...item})
+        })
+        data.value = nextData
+        isLoading.value = false // загрузка данных завершена
+      })
+      .catch((e) => {
+        console.log(e)
+      })
+
+    const showModal = ref(false)
     const handleModalShow = () => {
       // решает проблему с быстрым переключением модального окна
       const nextShowModal = showModal.value = !showModal.value
@@ -96,8 +99,20 @@ export default {
       })
     })
 
-    const handleLikeSubmit = (id) => {
-      console.log(`Tweet id=${id} has been liked`);
+    // увеличиваем лайки
+    const handleLikeSubmit = (tweet) => {
+      // как вариант const tweet = {
+      //   ...item,
+      //   likes: item.likes + 1
+      // }
+      http
+        .put(`/tweets/${tweet.id+1}.json`, tweet)
+        .then(() => {
+          tweet.likes += 1
+        })
+        .catch((e) => {
+          console.log(e)
+        })
     }
 
     const handleTweetSubmit = (body) => {
@@ -113,14 +128,23 @@ export default {
 
     const tweet = reactive({
       likes: 0,
-      avatar: 'https://tocode.ru/static/_secret/bonuses/1/avatar-1Tq9kaAql.png',
+      avatar:`https://avatars.dicebear.com/api/male/${Date.now()}.svg`,
+      // 'https://tocode.ru/static/_secret/bonuses/1/avatar-1Tq9kaAql.png',
       date: new Date(Date.now()).toLocaleString(),
       body: ''
     })
 
     const handleStore = () => {
       http.post('/tweets.json', tweet)
-      console.log(tweet.body)
+      .then(() => {
+        // после подтверждения от fb что данные успешно записаны
+        tweet.body = ''
+        handleModalShow()   // закрываем модальное окно с новым твитом
+        getTweets()         // обновляем твиты из firebase
+      })
+      .catch((e) => {
+        console.log(e)
+      })
     }
 
     return {
