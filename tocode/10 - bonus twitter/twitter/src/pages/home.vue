@@ -19,7 +19,7 @@
       :name="item.date"
       :imgUrl="item.avatar"
       @onSubmit="handleLikeSubmit(item)">
-        <div>{{ item.body }}</div>
+        <div class="md-body" v-html="compileMarked(item.body)"></div>
     </tweet>
   </div>
 
@@ -41,6 +41,7 @@
 // базовые настройки axios firebase
 import http from '../http-common.js'
 import { onMounted, ref, reactive, computed } from 'vue'
+import { marked } from 'marked'
 
 import Spinner from '../components/UI/Spinner.vue'
 import Modal from '../components/UI/Modal.vue'
@@ -52,7 +53,7 @@ export default {
     Spinner,
     Modal,
     Tweet,
-    TweetForm
+    TweetForm,
   },
   setup() {
     const isLoading = ref(true)
@@ -68,6 +69,11 @@ export default {
     ])
 
     onMounted(() => getTweets())
+
+    // markdown
+    const compileMarked = (text) => {
+      return marked(text, {santize: true})
+    }
 
     const getTweets = () => http.get('/tweets.json')
       .then((res) => {
@@ -157,6 +163,7 @@ export default {
       dataSortered,
       handleStore,
       tweet,
+      compileMarked
     }
   }
 };

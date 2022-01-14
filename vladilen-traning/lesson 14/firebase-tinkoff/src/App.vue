@@ -1,10 +1,12 @@
 <template>
-  <!-- <component :is="layout + '-layout'" v-if="layout" /> -->
-  <h3>{{ layout }} -layout</h3>
+<!-- <router-view/> -->
+<!-- Динамически подключаем компонент -->
+<component :is="`${layout}-layout`" v-if="layout" />
 </template>
 
 <script>
-import { useRoute, computed } from 'vue-router'
+import { computed } from 'vue'
+import { useRoute } from 'vue-router'
 import AuthLayout from "./layout/AuthLayout.vue"
 import MainLayout from "./layout/MainLayout.vue"
 
