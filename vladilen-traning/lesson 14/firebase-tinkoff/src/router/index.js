@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Home from '@/views/Home.vue'
+import store from '../store'
 
 const routes = [
   {
@@ -10,6 +11,7 @@ const routes = [
     // layout - для какой страницы доступен
     meta: {
       layout: 'main',
+      auth: true
     }
   },
   {
@@ -18,6 +20,7 @@ const routes = [
     component: () => import('@/views/Help.vue'),
     meta: {
       layout: 'main',
+      auth: true
     }
   },
   {
@@ -26,6 +29,7 @@ const routes = [
     component: () => import('@/views/Auth.vue'),
     meta: {
       layout: 'auth',
+      auth: false
     }
   }
 ]
@@ -33,6 +37,20 @@ const routes = [
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes
+})
+
+// ограничиваем доступ только для авторизированных
+router.beforeEach((to, from, next) => {
+  const requireAuth = to.meta.auth
+  if (requireAuth && store.getters['auth/isAuthenticated']) {
+    next() // если аутентификация есть, продолжаем выполнение
+
+  } else if (requireAuth && !store.getters['auth/isAuthenticated']) {
+    next('/auth?message=auth') // иначе переадресовываем на логин
+
+  } else {
+    next()
+  }
 })
 
 export default router

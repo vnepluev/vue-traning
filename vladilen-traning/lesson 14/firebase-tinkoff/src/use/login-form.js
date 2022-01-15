@@ -1,8 +1,12 @@
 import { computed, watch } from 'vue'
 import * as yup from 'yup'
-import {useField, useForm} from 'vee-validate'
+import { useField, useForm } from 'vee-validate'
+import { useStore } from 'vuex'
+import { useRouter } from 'vue-router'
 
 export function useLoginForm() {
+  const store = useStore()
+  const router = useRouter()
       // submitCount - количество попыток входа
       const {handleSubmit, isSubmitting, submitCount} = useForm()
 
@@ -24,8 +28,9 @@ export function useLoginForm() {
       )
   
       // values - набор значений всех полей
-      const onSubmit = handleSubmit((values) => {
-  
+      const onSubmit = handleSubmit(async (values) => {
+        await store.dispatch('auth/login', values)
+        router.push('/')
       })
   
       // количество попыток входа
