@@ -1,15 +1,25 @@
-# Quasar Todo (quasar-todo)
+# Sofi Taty (sofi-taty)
 
-A Quasar Framework app
+Sofi Tatu Project
 
 ## Install the dependencies
 ```bash
-npm install
+yarn
 ```
 
 ### Start the app in development mode (hot-code reloading, error reporting, etc.)
 ```bash
 quasar dev
+```
+
+### Lint the files
+```bash
+yarn lint
+```
+
+### Format the files
+```bash
+yarn format
 ```
 
 ### Build the app for production
