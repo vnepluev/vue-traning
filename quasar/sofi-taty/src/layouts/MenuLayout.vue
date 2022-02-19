@@ -5,7 +5,7 @@
     <!-- (Optional) The Header -->
     <q-header elevated>
       <q-toolbar>
-        <q-toolbar-title align="center" class="font-bold">Sofi Tatu</q-toolbar-title>
+        <q-toolbar-title align="center" class="font-bold text-3xl">Sofi Tattoo</q-toolbar-title>
       </q-toolbar>
 
       <!-- <q-tabs>
@@ -15,15 +15,16 @@
     </q-header>
 
     <!-- (Optional) The Footer -->
-    <q-footer class="px-5">
+    <q-footer class="px-5" indicator-color="transparent">
       <q-tabs switch-indicator class="tabs-bottom">
         <q-route-tab
           v-for="(menuItems, index) in menuItems"
           :key="index"
           :icon="menuItems.icon"
-          to="/your/route"
+          :to="menuItems.link"
           replace
           :label="menuItems.displayName"
+          :ripple="false"
         />
       </q-tabs>
     </q-footer>
@@ -58,6 +59,9 @@ export default {
 
 <style lang="scss">
 .tabs-bottom {
+  .q-tab {
+    width: 50%;
+  }
   .q-tab__content {
     .q-tab__label {
       font-size: 11px;
