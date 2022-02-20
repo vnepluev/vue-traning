@@ -60,6 +60,6 @@ module.exports = {
     requireConfigFile: 0,
 
     // allow debugger during development only
-    "no-debugger": process.env.NODE_ENV === "production" ? "2" : "0",
+    "no-debugger": process.env.NODE_ENV === "production" ? 2 : 0,
   },
 };

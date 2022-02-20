@@ -1,0 +1,10 @@
+{
+	"appId": "org.capasitor.sofi.app",
+	"appName": "Sofi Tattoo",
+	"bundledWebRuntime": false,
+	"npmClient": "yarn",
+	"webDir": "www",
+	"server": {
+		"url": "http://192.168.88.250:8080"
+	}
+}

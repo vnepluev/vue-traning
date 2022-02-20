@@ -44,11 +44,11 @@ quasar new p Profile -> /pages/Profile.vue
 quasar new layout MenuLayout  -> /layout/
 ```
 
-# [Optiona] Installing icongenie
+## [Optiona] Installing icongenie
 
 yarn global add @quasar/icongenie
 
-# Generate profile
+### Generate profile
 
 icongenie p \
  -o prod \
@@ -58,6 +58,30 @@ icongenie p \
  --skip-trim \
  --include all
 
-# Use profile
+### Use profile
 
 icongenie g -p ./icongenie-prod.json
+
+### Install Android
+
+```bash
+https://quasar.dev/quasar-cli/developing-capacitor-apps/preparation
+quasar mode add capacitor
+```
+
+```bash
+cd src-capacitor
+yarn
+yarn add @capacitor/android
+npx cap add android
+```
+
+##### src-capacitor/package.json
+
+```bash
+  "dependencies": {
+    "@capacitor/cli": "^3.0.0",
+    "@capacitor/core": "^3.0.0"
+	 "@capacitor/android": "^3.4.1"
+  }
+```
