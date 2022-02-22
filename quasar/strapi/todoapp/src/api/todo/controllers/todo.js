@@ -35,20 +35,6 @@ const { createCoreController } = require("@strapi/strapi").factories;
 // module.exports = createCoreController('api::todo.todo');
 
 module.exports = createCoreController("api::todo.todo", ({ strapi }) => ({
-  //   async create(ctx) {
-  //     const todo = ctx.request.body;
-  //     //  console.log(todo);
-  //     //  todo.data.user = ctx.state.user.id;
-
-  //     const entity = await strapi.service("api::todo.todo").create(todo);
-  //     entity.user = ctx.state.user.id;
-  //     console.log(entity);
-
-  //     const sanitizedEntity = await this.sanitizeOutput(entity, ctx);
-  //     console.log(sanitizedEntity);
-
-  //     return this.transformResponse(sanitizedEntity);
-  //   },
   async create(ctx) {
     const todo = ctx.request.body;
 
@@ -59,5 +45,20 @@ module.exports = createCoreController("api::todo.todo", ({ strapi }) => ({
     console.log(sanitizedEntity);
 
     return { data: sanitizedEntity };
+  },
+
+  // https://docs.strapi.io/developer-docs/latest/development/backend-customization/services.html#adding-a-new-service
+  async find(ctx) {
+    console.log(ctx.state.user.id);
+
+    const entries = await strapi.db.query("api::todo.todo").findMany({
+      select: ["*"],
+    });
+
+    console.log(entries);
+
+    ctx.body = entries;
+
+    // return { data: {} };
   },
 }));
