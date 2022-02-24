@@ -1,0 +1,24 @@
+{
+  "kind": "collectionType",
+  "collectionName": "ingridients",
+  "info": {
+    "singularName": "ingridient",
+    "pluralName": "ingridients",
+    "displayName": "Ingridients"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "ingridient": {
+      "type": "string"
+    },
+    "recipes": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::recipe.recipe",
+      "mappedBy": "ingridients"
+    }
+  }
+}
