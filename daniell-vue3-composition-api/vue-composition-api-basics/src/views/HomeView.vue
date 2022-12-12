@@ -17,13 +17,14 @@
 
     <div class="edit">
       <h4>Edit counter title:</h4>
-      <input type="text" v-model="counterData.title">
+      <input type="text" v-model="counterData.title" v-autofocus>
     </div>
   </div>
 </template>
 
 <script setup>
 import { reactive, ref, computed, watch, onBeforeMount, onMounted, onBeforeUnmount, onUnmounted, onActivated, onDeactivated, onBeforeUpdate, onUpdated } from 'vue';
+import { vAutofocus } from '@/directives/vAutofocus'
 
 // Иногда данным не обязательно быть реактивными
 const appTitle = 'My amazing title'
@@ -50,7 +51,7 @@ const decreaseCounter = () => counterData.counter--
 
 const increaseCounter = (amount, e) => {
   counterData.counter += amount
-  console.log(e); // если нужно передать эвент
+  console.log(e); // если нужно передать $event
 }
 
 // хуки
@@ -86,6 +87,15 @@ onUpdated(() => {
   console.log('onUpdated');
 })
 
+/*
+  directives
+*/
+// const vAutofocus = { // v-autofocus
+//   mounted: (el) => {
+//     el.focus()
+//   }
+// } 
+
 </script>
 
 <!-- <script>
@@ -106,29 +116,41 @@ export default {
     }
   }
 }
-// export default {
-//   data() {
-//     return {
-//       counter: 0,
-//     }
-//   },
-//   methods: {
-//     increaseCounter() {
-//       this.counter++
-//     },
-//     decreaseCounter() {
-//       this.counter--
-//     }
-//   },
-//   watch: {
-//    count(newCount, oldCount) {
-//      if (newCount == 20) alert('Alert')
-//    }
-//   },
-//   mounted() { ... },
-//   unmounted() { ... },
-// }
 </script>  -->
+
+<!-- 
+<script>
+export default {
+  data() {
+    return {
+      counter: 0,
+    }
+  },
+  methods: {
+    increaseCounter() {
+      this.counter++
+    },
+    decreaseCounter() {
+      this.counter--
+    }
+  },
+  watch: {
+   count(newCount, oldCount) {
+     if (newCount == 20) alert('Alert')
+   }
+  },
+  // mounted() { ... },
+  // unmounted() { ... },
+  directives: {
+    autofocus: {
+      mounted(el) {
+        el.focus()
+      }
+    }
+  }
+}
+</script>
+-->
 
 <style>
 .home {
