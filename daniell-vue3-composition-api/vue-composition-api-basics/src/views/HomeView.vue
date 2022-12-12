@@ -1,30 +1,134 @@
 <template>
   <div class="home">
-    <div>
+    <h2>{{ appTitle }}</h2>
+
+    <h3>{{ counterData.title }}</h3>
+
+    <section>
       <button @click="decreaseCounter" class="btn">-</button>
-        <span class="counter">{{ counter }}</span>
-      <button @click="increaseCounter" class="btn">+</button>
+        <span class="counter">{{ counterData.counter }}</span>
+      <button @click="increaseCounter(1)" class="btn">+</button>
+      <button @click="increaseCounter(2, $event)" class="btn">++</button>
+    </section>
+
+    <section>
+      <p>This counter is {{ oddOrEven }}</p>
+    </section>
+
+    <div class="edit">
+      <h4>Edit counter title:</h4>
+      <input type="text" v-model="counterData.title">
     </div>
   </div>
 </template>
 
-<script>
+<script setup>
+import { reactive, ref, computed, watch, onBeforeMount, onMounted, onBeforeUnmount, onUnmounted, onActivated, onDeactivated, onBeforeUpdate, onUpdated } from 'vue';
+
+// Иногда данным не обязательно быть реактивными
+const appTitle = 'My amazing title'
+
+const counter = ref(0)
+const counterTitle = ref('Counter title')
+const counterData = reactive({
+  counter: 0,
+  title: 'My counter'
+})
+
+watch(() => counterData.counter, (newCount, oldCount) => {
+  console.log(newCount, oldCount);
+})
+
+const oddOrEven = computed(() => {
+  if (counterData.counter % 2 === 0) {
+    return 'even'
+  }
+  return 'odd'
+})
+
+const decreaseCounter = () => counterData.counter--
+
+const increaseCounter = (amount, e) => {
+  counterData.counter += amount
+  console.log(e); // если нужно передать эвент
+}
+
+// хуки
+onBeforeMount(() => {
+  console.log('onBeforeMount')
+})
+
+onMounted(() => {
+  console.log('onMounted')
+})
+
+onBeforeUnmount(() => {
+  console.log('onBeforeUnmount')
+})
+
+onUnmounted(() => {
+  console.log('onUnmounted')
+})
+
+onActivated(() => {
+  console.log('onActivated')
+})
+
+onDeactivated(() => {
+  console.log('onDeactivated')
+})
+
+onBeforeUpdate(() => {
+  console.log('onBeforeUpdate');
+})
+
+onUpdated(() => {
+  console.log('onUpdated');
+})
+
+</script>
+
+<!-- <script>
+import { ref } from 'vue';
+
 export default {
-  data() {
+  setup() {
+    const counter = ref(0)
+
+    const decreaseCounter = () => counter.value--
+
+    const increaseCounter = () => counter.value++
+
     return {
-      counter: 0,
-    }
-  },
-  methods: {
-    increaseCounter() {
-      this.counter++
-    },
-    decreaseCounter() {
-      this.counter--
+      counter,
+      decreaseCounter,
+      increaseCounter
     }
   }
 }
-</script>
+// export default {
+//   data() {
+//     return {
+//       counter: 0,
+//     }
+//   },
+//   methods: {
+//     increaseCounter() {
+//       this.counter++
+//     },
+//     decreaseCounter() {
+//       this.counter--
+//     }
+//   },
+//   watch: {
+//    count(newCount, oldCount) {
+//      if (newCount == 20) alert('Alert')
+//    }
+//   },
+//   mounted() { ... },
+//   unmounted() { ... },
+// }
+</script>  -->
 
 <style>
 .home {
@@ -35,5 +139,8 @@ export default {
 .btn, .counter {
   font-size: 40px;
   margin: 10px;
+}
+.edit {
+  margin-top: 30px;
 }
 </style>
