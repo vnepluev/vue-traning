@@ -1,6 +1,9 @@
 <template>
   <div class="user-data">
-    {{ userData.name }} @{{ userData.userName }}
+    {{ userData.name }} @{{ userData.userName }} |
+    <span
+      :style="{color: online ? 'green' : 'red'}"
+    >{{ online ? 'online' : 'offline' }}</span>
   </div>
 
   <header>
@@ -20,7 +23,8 @@
 
 <script setup>
 import { RouterLink } from 'vue-router'
-import { reactive, provide } from "vue";
+import { reactive, provide } from "vue"
+import { useOnline } from '@vueuse/core'
 /*
   user data
 */
@@ -36,6 +40,12 @@ const userData2 = reactive({
 
 // название параметра, данные
 provide('userData2', userData2)
+
+/*
+  online status
+*/
+const online = useOnline()
+
 </script>
 
 <style scoped>
