@@ -12,12 +12,23 @@
     </ul>
 
     <textarea name="text-area" cols="30" rows="5" v-autofocus></textarea>
+
+    <div>
+      <button
+        class="counter-button"
+        @click="decreaseCounter"
+        :class="{'yellow': oddOrEven === 'odd'}"
+      >
+        {{ counterData.counter }}
+      </button>
+    </div>
   </div>
 </template>
 
 <script setup>
 import { ref } from 'vue';
 import { vAutofocus } from '@/directives/vAutofocus'
+import { useCounter } from '@/use/useCounter'
 
 const posts = ref([
   {
@@ -32,10 +43,28 @@ const posts = ref([
     title: 'Post 3'
   },
 ])
+
+/*
+  counter button
+*/
+const { counterData, decreaseCounter, oddOrEven } = useCounter()
+
+
+
 </script>
 
 <style scoped>
 ul {
   margin-bottom: 30px;
+}
+
+.counter-button {
+  font-size: 60px;
+  width: 100%;
+  background-color: pink;
+}
+
+.counter-button.yellow {
+  background-color: yellow;
 }
 </style>

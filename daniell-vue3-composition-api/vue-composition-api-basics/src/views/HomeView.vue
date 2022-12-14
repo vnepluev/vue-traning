@@ -23,34 +23,25 @@
 </template>
 
 <script setup>
-import { reactive, ref, computed, watch, onBeforeMount, onMounted, onBeforeUnmount, onUnmounted, onActivated, onDeactivated, onBeforeUpdate, onUpdated, nextTick } from 'vue';
+import { ref, onBeforeMount, onMounted, onBeforeUnmount, onUnmounted, onActivated, onDeactivated, onBeforeUpdate, onUpdated, nextTick } from 'vue';
 import { vAutofocus } from '@/directives/vAutofocus'
+import { useCounter } from '@/use/useCounter'
 
 // Иногда данным не обязательно быть реактивными
 const appTitle = 'My amazing title'
 
 const counter = ref(0)
 const counterTitle = ref('Counter title')
-const counterData = reactive({
-  counter: 0,
-  title: 'My counter'
-})
 
 // this.$refs.appTitleRef
 const appTitleRef = ref(null)
 
-watch(() => counterData.counter, (newCount, oldCount) => {
-  console.log(newCount, oldCount);
-})
-
-const oddOrEven = computed(() => {
-  if (counterData.counter % 2 === 0) {
-    return 'even'
-  }
-  return 'odd'
-})
-
-const decreaseCounter = () => counterData.counter--
+/* 
+  counter composables
+*/
+// можно еще так const counter = useCounter()
+// counter.counterData
+const { counterData, oddOrEven, decreaseCounter } = useCounter()
 
 const increaseCounter = (amount, e) => {
   counterData.counter += amount
