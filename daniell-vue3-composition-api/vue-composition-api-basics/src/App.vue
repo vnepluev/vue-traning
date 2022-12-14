@@ -1,8 +1,8 @@
-<script setup>
-import { RouterLink } from 'vue-router'
-</script>
-
 <template>
+  <div class="user-data">
+    {{ userData.name }} @{{ userData.userName }}
+  </div>
+
   <header>
   <nav>
     <RouterLink to="/">Home</RouterLink>
@@ -10,7 +10,7 @@ import { RouterLink } from 'vue-router'
     <RouterLink to="/posts">Posts</RouterLink>
     <RouterLink to="/about">About</RouterLink>
   </nav>
-  <router-view v-slot="{ Component }">
+  <router-view v-slot="{ Component }" :userData="userData">
     <keep-alive>
       <component :is="Component" />
     </keep-alive>
@@ -18,15 +18,30 @@ import { RouterLink } from 'vue-router'
   </header>
 </template>
 
+<script setup>
+import { RouterLink } from 'vue-router'
+import { reactive, provide } from "vue";
+/*
+  user data
+*/
+const userData = reactive({
+  name: 'Val',
+  userName: 'valChannel'
+})
+
+const userData2 = reactive({
+  name: 'Val',
+  userName: 'valChannel'
+})
+
+// название параметра, данные
+provide('userData2', userData2)
+</script>
+
 <style scoped>
 header {
   line-height: 1.5;
   max-height: 100vh;
-}
-
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
 }
 
 nav {
@@ -52,6 +67,15 @@ nav a {
 
 nav a:first-of-type {
   border: 0;
+}
+
+.user-data {
+  position: absolute;
+  background-color: beige;
+  top: 0;
+  right: 0;
+  color: #333;
+  padding: 5px;
 }
 
 </style>

@@ -9,12 +9,17 @@
             <!-- <button @click="$emit('isModalHide')">Hide modal</button> -->
             <!-- <button @click="$emit('update:modelValue', false)">Hide modal</button> -->
             <button @click="handleButtonClick">Hide modal function</button>
+            <div>
+                User name is: {{ userData.name }} <br>
+                User data2 is: {{ userData2.userName }}
+            </div>
         </div>
     </teleport>
 </template>
 
 <!-- -->
 <script setup>
+import { inject } from 'vue'
 /* 
     props
 */
@@ -26,6 +31,9 @@ const props = defineProps({
     title: {
         type: String,
         default: 'No title'
+    },
+    userData: {
+        type: Object
     }
 })
 // Обращение в коде к пропсам только так
@@ -36,6 +44,9 @@ const props = defineProps({
 */
 // const emits = defineEmits(['isModalHide'])
 const emits = defineEmits(['update:modelValue'])
+
+//
+const userData2 = inject('userData2')
 
 // использование emits в коде
 // const handleButtonClick = () => emits('isModalHide')
