@@ -1,9 +1,10 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
-import AboutView from '../views/AboutView.vue'
-import ModalsView from '../views/ModalsView.vue'
-import PostsView from '../views/PostsView.vue'
-import PostDetailView from '../views/PostDetailView.vue'
+import HomeView from '@/views/HomeView.vue'
+import PiniaView from '@/views/PiniaView.vue'
+import AboutView from '@/views/AboutView.vue'
+import ModalsView from '@/views/ModalsView.vue'
+import PostsView from '@/views/PostsView.vue'
+import PostDetailView from '@/views/PostDetailView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -12,6 +13,11 @@ const router = createRouter({
       path: '/',
       name: 'home',
       component: HomeView
+    },
+    {
+      path: '/pinia',
+      name: 'pinia',
+      component: PiniaView
     },
     {
       path: '/about',
