@@ -4,13 +4,20 @@
         <div class="card has-background-success-dark p-4 mb-5">
             <div class="field">
                 <div class="control">
-                    <textarea class="textarea" placeholder="Add new note"></textarea>
+                    <textarea
+                     v-model="newNote"
+                     class="textarea"
+                     ref="newNoteRef"
+                     placeholder="Add new note"></textarea>
                 </div>
                 </div>
 
                 <div class="field is-grouped is-grouped-right">
                 <div class="control">
-                    <button class="button is-link has-background-success">Add New Note</button>
+                    <button 
+                     @click="addNote"
+                     :disabled="!newNote"
+                     class="button is-link has-background-success">Add New Note</button>
                 </div>
             </div>
         </div>
@@ -42,6 +49,9 @@ import { ref } from 'vue';
 /*
     notes
 */
+const newNote = ref('')
+const newNoteRef = ref(null)
+
 const notes = ref([
     {
         id: 'id1',
@@ -52,4 +62,19 @@ const notes = ref([
         content: 'id2, Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellat rem velit.'
     }
 ])
+
+const addNote = () => {
+    const currentDate = new Date().getTime()
+    let id = currentDate.toString()
+
+    let note = {
+        id,
+        content: newNote.value
+    }
+
+    notes.value.unshift(note)
+
+    newNote.value = ''
+    newNoteRef.value.focus()
+}
 </script>
