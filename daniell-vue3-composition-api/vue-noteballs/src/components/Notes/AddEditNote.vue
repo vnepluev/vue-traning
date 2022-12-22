@@ -7,7 +7,7 @@
                     v-model="newNote"
                     @input="$emit('update:modelValue', newNote)"
                     class="textarea"
-                    ref="newNoteRef"
+                    ref="textareaRef"
                     placeholder="Add new note"></textarea>
             </div>
         </div>
@@ -21,6 +21,7 @@
 </template>
 
 <script setup>
+// https://v3.ru.vuejs.org/ru/guide/migration/v-model.html#%D0%B0%D1%80%D0%B3%D1%83%D0%BC%D0%B5%D0%BD%D1%82%D1%8B-v-model
 import { ref } from 'vue'
 
 const newNote = ref('')
@@ -40,4 +41,15 @@ const props = defineProps({
  */
 const emit = defineEmits(['update:modelValue'])
 
+/**
+ * focus textarea
+ */
+const textareaRef = ref(null)
+
+const focusTextarea = () => {
+    textareaRef.value.focus()
+    newNote.value = ''
+}
+
+defineExpose({ focusTextarea })
 </script>
