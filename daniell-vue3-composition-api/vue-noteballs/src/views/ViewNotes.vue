@@ -4,6 +4,7 @@
         <add-edit-note
           v-model="newNote"
           ref="addEditNoteRef"
+          placeholder="Add a new note"
         >
             <template #buttons>
                 <button 
