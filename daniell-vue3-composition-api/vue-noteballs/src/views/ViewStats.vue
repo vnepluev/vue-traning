@@ -18,6 +18,11 @@
                 </tr>
             </tbody>
         </table>
+        <input
+          type="text"
+          class="input"
+          placeholder="Do you love footballs?"
+        >
     </div>
 </template>
 
