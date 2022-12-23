@@ -23,6 +23,7 @@
   >
     <div class="navbar-end">
       <router-link
+       @click="isShowMobileNav = false"
        to="/"
        class="navbar-item"
        active-class="is-active"
@@ -31,6 +32,7 @@
       </router-link>
 
       <router-link
+       @click="isShowMobileNav = false"
        to="/stats"
        class="navbar-item"
        active-class="is-active"
