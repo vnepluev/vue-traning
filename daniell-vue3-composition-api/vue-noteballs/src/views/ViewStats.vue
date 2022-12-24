@@ -45,5 +45,5 @@ const storeNotes = useStoreNotes()
  */
 const loveNoteballs = ref('')
 
-useWatchCharacters(loveNoteballs)
+useWatchCharacters(loveNoteballs, 10)
 </script>
